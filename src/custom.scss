@@ -1,0 +1,26 @@
+$background: #e0e3e8;
+
+// Adjust Theme colors
+$theme-colors: (
+  "primary":    #3069fb,
+  "secondary":  #00CCDC,
+  "light":      #f7fafc,
+  "dark":       #2d3748,
+  "background": $background
+);
+
+// Import Sass AFTER defining custom colors
+@import '~bootstrap/scss/bootstrap';
+
+// Adjust React Components Styling
+.container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+//Adjust Global Elements
+
+#root {
+    background-color: $background;
+  }
