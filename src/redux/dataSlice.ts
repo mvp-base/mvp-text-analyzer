@@ -8,10 +8,10 @@ const initialState: DataSliceInterface = {
   data: {},
 };
 
-// const localStorageData = localStorage.getItem('data');
-// if (localStorageData) {
-//   initialState.data = JSON.parse(localStorageData);
-// }
+const localStorageData = localStorage.getItem('data');
+if (localStorageData) {
+  initialState.data = JSON.parse(localStorageData);
+}
 
 const dataSlice = createSlice({
   name: 'data',

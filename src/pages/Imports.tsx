@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Form, Button, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addData } from '../redux/dataSlice';
+import { addData, deleteData } from '../redux/dataSlice';
 import { RootState } from '../redux/store';
 
 export default function Imports() {
@@ -10,6 +10,8 @@ export default function Imports() {
 
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data.data);
+
+  console.log(data);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const importedFile = e.target.files?.[0] || null;
@@ -72,6 +74,10 @@ export default function Imports() {
     }
   };
 
+  const handleDeleteFile = (filename: any) => {
+    dispatch(deleteData({ filename }));
+  };
+
   return (
     <Container className="my-5">
       <Form id="ImportFileForm" onSubmit={handleSubmit}>
@@ -87,10 +93,21 @@ export default function Imports() {
 
       <p>Imported Files</p>
       <ListGroup>
-        <ListGroup.Item>This</ListGroup.Item>
-        <ListGroup.Item>ListGroup</ListGroup.Item>
-        <ListGroup.Item>renders</ListGroup.Item>
-        <ListGroup.Item>horizontally!</ListGroup.Item>
+        {Object.keys(data).map((key) => {
+          const fileType = key.split('.').pop();
+          return (
+            <ListGroup.Item>
+              <i className={`bi bi-filetype-${fileType}`}></i>
+              {key}
+              <Button
+                variant="outline-danger"
+                onClick={() => handleDeleteFile(key)}
+              >
+                Delete
+              </Button>
+            </ListGroup.Item>
+          );
+        })}
       </ListGroup>
     </Container>
   );

@@ -24,7 +24,6 @@ export default function App() {
               <Route path="/imports" element={<Imports />} />
             </Routes>
           </Container>
-
           <Footer />
         </Col>
       </Container>
