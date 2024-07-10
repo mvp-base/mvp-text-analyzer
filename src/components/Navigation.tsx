@@ -35,7 +35,7 @@ export default function Navigation() {
       </Container>
       <Nav className="d-flex flex-column w-100 my-2" id="MainNav">
         <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
-        <NavEntry to="/import" icon="bi bi-upload" text="IMPORT" />
+        <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
       </Nav>
     </Navbar>
   );
