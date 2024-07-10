@@ -1,6 +1,6 @@
-# Word Count Analyzer
+# Simple Text Analyzer
 
-The Word Count Analyzer is a project that allows users to import a text file, with each row representing a separate text entry. The application processes the text to display the frequency of words within the text using graphical representations.
+The Text Analyzer is a project that allows users to import a text file, with each row representing a separate text entry. The application processes the text to display the frequency of words within the text using graphical representations.
 
 ## Precondition
 

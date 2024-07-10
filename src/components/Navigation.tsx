@@ -1,6 +1,8 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
+import textLogo from '../assets/images/text-logo.svg';
+
 type NavigationButtonType = {
   to: string;
   text: string;
@@ -14,7 +16,7 @@ function NavEntry(props: NavigationButtonType) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `d-flex gap-3 p-2 m-2 rounded-3 text-white ${
+        `d-flex gap-3 p-2 m-2 rounded-3 text-primary fw-bold ${
           isActive ? 'active-nav-link' : 'inactive-nav-link'
         }`
       }
@@ -26,12 +28,14 @@ function NavEntry(props: NavigationButtonType) {
 
 export default function Navigation() {
   return (
-    <Navbar className="d-flex flex-column bg-primary flex-fill rounded-3 overflow-hidden p-0">
+    <Navbar className="d-flex flex-column bg-white shadow flex-fill rounded-3 overflow-hidden p-0">
       <Container
         fluid
-        className="d-flex justify-content-center bg-secondary py-3"
+        className="d-flex justify-content-center bg-tetriary py-3"
       >
-        <NavLink to="/" className='text-white'>Word-Count-Analyzer</NavLink>
+        <NavLink to="/" className="text-white">
+        <img src={textLogo} className="App-logo" alt="logo" />
+        </NavLink>
       </Container>
       <Nav className="d-flex flex-column w-100 my-2" id="MainNav">
         <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />

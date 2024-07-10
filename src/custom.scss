@@ -1,18 +1,14 @@
-$primary: #2f49d0;
-$secondary: #3962f3;
-$light: #f7fafc;
-$dark: #2d3748;
+$primary: #04364A;
+$secondary: #005E6E;
+$tetriary: #008982;
 $background: #e0e3e8;
-$active: #435bd5;
 
 // Adjust Theme colors
 $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
-    "light": $light,
-    "dark": $dark,
+    "tetriary": $tetriary,
     "background": $background,
-    "active": $active
 );
 
 // Import Sass AFTER defining custom colors
@@ -38,10 +34,10 @@ $theme-colors: (
 
 .inactive-nav-link:hover {
     text-decoration: none;
-    background-color: $active;
+    background-color: $tetriary;
 }
 
 .active-nav-link {
     text-decoration: none;
-    background-color: $active;
+    background-color: $tetriary;
 }
