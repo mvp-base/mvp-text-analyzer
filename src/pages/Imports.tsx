@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import { Container, Form, Button, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { addData, deleteData } from '../redux/dataSlice';
 import { RootState } from '../redux/store';
+
+import ConfirmDialog from '../components/ConfirmDialog';
 
 export default function Imports() {
   const [file, setFile] = useState<File | null>(null);
   const [submitResult, setSubmitResult] = useState('');
 
+  const [confirmDialogShown, setConfirmDialogShown] = useState(false);
+  const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
+
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.data.data);
-
-  console.log(data);
+  const sortedData = Object.keys(data).sort();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const importedFile = e.target.files?.[0] || null;
@@ -34,6 +39,8 @@ export default function Imports() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    setSubmitResult('');
+
     if (!file) {
       setSubmitResult('No file imported.');
       return;
@@ -43,7 +50,7 @@ export default function Imports() {
     const apiKey = process.env.REACT_APP_TEXT_RAZOR_API_KEY || '';
     const url = '/';
     const data = new URLSearchParams({
-      extractors: 'entities,sentences',
+      extractors: 'entities,topics',
       text: fileContent,
     }).toString();
 
@@ -78,6 +85,16 @@ export default function Imports() {
     dispatch(deleteData({ filename }));
   };
 
+  const handleCloseConfirmDialog = () => {
+    setConfirmDialogShown(false);
+    setKeyToDelete(null);
+  };
+  const handleAcceptConfirmDialog = () => {
+    handleDeleteFile(keyToDelete);
+    setKeyToDelete(null);
+    setConfirmDialogShown(false);
+  };
+
   return (
     <Container className="my-5">
       <Form id="ImportFileForm" onSubmit={handleSubmit}>
@@ -93,7 +110,7 @@ export default function Imports() {
 
       <p>Imported Files</p>
       <ListGroup>
-        {Object.keys(data).map((key) => {
+        {sortedData.map((key) => {
           const fileType = key.split('.').pop();
           return (
             <ListGroup.Item>
@@ -101,7 +118,10 @@ export default function Imports() {
               {key}
               <Button
                 variant="outline-danger"
-                onClick={() => handleDeleteFile(key)}
+                onClick={() => {
+                  setKeyToDelete(key);
+                  setConfirmDialogShown(true);
+                }}
               >
                 Delete
               </Button>
@@ -109,6 +129,15 @@ export default function Imports() {
           );
         })}
       </ListGroup>
+      <ConfirmDialog
+        headerText="Confirm Delete"
+        bodyText={`Are you sure you want to delete ${keyToDelete}?`}
+        cancelButton={{ text: 'Cancel', variant: 'secondary' }}
+        acceptButton={{ text: 'Delete', variant: 'danger' }}
+        shown={confirmDialogShown}
+        handleClose={handleCloseConfirmDialog}
+        handleAccept={handleAcceptConfirmDialog}
+      />
     </Container>
   );
 }
