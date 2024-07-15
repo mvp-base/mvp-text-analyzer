@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Container, Form, Button, ListGroup } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { Container, Form, Button, Table } from 'react-bootstrap';
 
-import { addData, deleteData } from '../redux/dataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFile, removeFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
 
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -15,8 +15,8 @@ export default function Imports() {
   const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
 
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.data.data);
-  const sortedData = Object.keys(data).sort();
+  const files = useSelector((state: RootState) => state.fileMgr.files);
+  const sortedFileNames = Object.keys(files).sort();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const importedFile = e.target.files?.[0] || null;
@@ -70,9 +70,7 @@ export default function Imports() {
 
       const result = await response.json();
 
-      dispatch(
-        addData({ filename: file.name, data: result.response.entities })
-      );
+      dispatch(addFile({ filename: file.name, data: result.response }));
 
       setFile(null);
       setSubmitResult('OK');
@@ -82,21 +80,23 @@ export default function Imports() {
   };
 
   const handleDeleteFile = (filename: any) => {
-    dispatch(deleteData({ filename }));
+    dispatch(removeFile({ filename }));
   };
 
   const handleCloseConfirmDialog = () => {
     setConfirmDialogShown(false);
     setKeyToDelete(null);
   };
+
   const handleAcceptConfirmDialog = () => {
     handleDeleteFile(keyToDelete);
     setKeyToDelete(null);
     setConfirmDialogShown(false);
   };
+ 
 
   return (
-    <Container className="my-5">
+    <Container fluid>
       <Form id="ImportFileForm" onSubmit={handleSubmit}>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Upload a file</Form.Label>
@@ -107,32 +107,44 @@ export default function Imports() {
         </Button>
         {submitResult && <p>{submitResult}</p>}
       </Form>
-
       <p>Imported Files</p>
-      <ListGroup>
-        {sortedData.map((key) => {
-          const fileType = key.split('.').pop();
-          return (
-            <ListGroup.Item>
-              <i className={`bi bi-filetype-${fileType}`}></i>
-              {key}
-              <Button
-                variant="outline-danger"
-                onClick={() => {
-                  setKeyToDelete(key);
-                  setConfirmDialogShown(true);
-                }}
-              >
-                Delete
-              </Button>
-            </ListGroup.Item>
-          );
-        })}
-      </ListGroup>
+      <Table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>File name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedFileNames.map((key) => {
+            const fileType = key.split('.').pop();
+            return (
+              <tr>
+                <td>
+                  <i className={`bi bi-filetype-${fileType}`}></i>
+                </td>
+                <td>{key}</td>
+                <td className="d-flex gap-2">
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => {
+                      setKeyToDelete(key);
+                      setConfirmDialogShown(true);
+                    }}
+                  >
+                    <i className="bi bi-trash"></i>
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
       <ConfirmDialog
         headerText="Confirm Delete"
         bodyText={`Are you sure you want to delete ${keyToDelete}?`}
-        cancelButton={{ text: 'Cancel', variant: 'secondary' }}
+        cancelButton={{ text: 'Cancel', variant: 'outline-secondary' }}
         acceptButton={{ text: 'Delete', variant: 'danger' }}
         shown={confirmDialogShown}
         handleClose={handleCloseConfirmDialog}

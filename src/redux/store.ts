@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dataReducer from './dataSlice';
+import fileMgrSlice from './fileMgrSlice';
 
 const store = configureStore({
   reducer: {
-    data: dataReducer,
+    fileMgr: fileMgrSlice,
   },
 });
 

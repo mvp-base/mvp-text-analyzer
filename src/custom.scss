@@ -1,7 +1,8 @@
-$primary: #04364A;
-$secondary: #005E6E;
-$tetriary: #008982;
-$background: #e0e3e8;
+$primary: #5155c3;
+$secondary: #3f45b3;
+$tetriary: #f18c56;
+$light: #ecedff;
+$dark: #3b4657;
 $danger: #df274f;
 
 // Adjust Theme colors
@@ -9,7 +10,8 @@ $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
     "tetriary": $tetriary,
-    "background": $background,
+    "light": $light,
+    "dark": $dark,
     "danger": $danger
 );
 
@@ -26,7 +28,7 @@ $theme-colors: (
 //Adjust Global Elements
 
 #root {
-    background-color: $background;
+    background-color: $light;
 }
 
 .inactive-nav-link {
@@ -36,10 +38,14 @@ $theme-colors: (
 
 .inactive-nav-link:hover {
     text-decoration: none;
-    background-color: $tetriary;
+    background-color: $secondary;
 }
 
 .active-nav-link {
     text-decoration: none;
-    background-color: $tetriary;
+    background-color: $secondary;
+}
+
+.card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
