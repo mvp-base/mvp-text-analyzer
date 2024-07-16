@@ -4,6 +4,19 @@ import { setSelectedFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
 import { Container, Form } from 'react-bootstrap';
 
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  ResponsiveContainer,
+  Legend,
+  XAxis,
+  YAxis,
+  Pie,
+  PieChart,
+  Cell,
+} from 'recharts';
+
 function EmptyDashboardContent() {
   return (
     <Container fluid>
@@ -12,12 +25,50 @@ function EmptyDashboardContent() {
   );
 }
 
-interface DashboardContentProps {
-  data: Object;
+interface RowData {
+  id: number;
+  row: string;
+  entities: any[];
+  topics: any[];
+  language: string;
 }
 
-function DashboardContent({ data }: DashboardContentProps) {
-  return <Container fluid></Container>;
+interface DataInterface {
+  globalStats: any;
+  rows: RowData[];
+}
+
+function DashboardContent({ globalStats, rows }: DataInterface) {
+  const COLORS = [
+    '#0088FE',
+    '#00C49F',
+    '#FFBB28',
+    '#FF8042',
+    '#964141',
+    '#16538d',
+  ];
+
+  return (
+    <Container fluid>
+      <ResponsiveContainer width="50%" height={300}>
+        <PieChart>
+          <Pie
+            data={globalStats}
+            nameKey="label"
+            dataKey="count"
+            outerRadius={100}
+            fill="#8884d8"
+            label
+          >
+            {globalStats.map((entry: any, index: any) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            ))}
+          </Pie>
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </Container>
+  );
 }
 
 export default function Dashboard() {
@@ -39,15 +90,15 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <Form.Select value={selectedFile} onChange={handleSelectionChange}>
         <option value="">No file selected</option>
-        {sortedFileNames.map((key) => {
-          return <option>{key}</option>;
+        {sortedFileNames.map((key, index) => {
+          return <option key={index}>{key}</option>;
         })}
       </Form.Select>
       <Container fluid>
         {selectedFile === '' || selectedFile === null ? (
           <EmptyDashboardContent />
         ) : (
-          <DashboardContent data={files[selectedFile]} />
+          <DashboardContent {...files[selectedFile]} />
         )}
       </Container>
     </Container>

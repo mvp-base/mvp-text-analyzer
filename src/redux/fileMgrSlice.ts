@@ -1,7 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface RowData {
+  id: number;
+  row: string;
+  entities: any[];
+  topics: any[];
+  language: string;
+}
+
+interface filesInterface {
+  globalStats: any;
+  rows: RowData[];
+}
+
 interface FileMgrInterface {
-  files: Record<string, Object>;
+  files: Record<string, filesInterface>;
   selectedFile: string;
 }
 
@@ -10,7 +23,7 @@ const initialState: FileMgrInterface = {
   selectedFile: '',
 };
 
-const localStorageData = localStorage.getItem('data');
+const localStorageData = localStorage.getItem('files');
 if (localStorageData) {
   initialState.files = JSON.parse(localStorageData);
 }
