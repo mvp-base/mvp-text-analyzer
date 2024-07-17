@@ -87,13 +87,18 @@ export default function Dashboard() {
 
   return (
     <Container fluid>
-      <h1>Dashboard</h1>
-      <Form.Select value={selectedFile} onChange={handleSelectionChange}>
-        <option value="">No file selected</option>
-        {sortedFileNames.map((key, index) => {
-          return <option key={index}>{key}</option>;
-        })}
-      </Form.Select>
+      <Container fluid className="body-header">
+        <h1>Dashboard</h1>
+      </Container>
+      <Container>
+        <Form.Select value={selectedFile} onChange={handleSelectionChange}>
+          <option value="">No file selected</option>
+          {sortedFileNames.map((key, index) => {
+            return <option key={index}>{key}</option>;
+          })}
+        </Form.Select>
+      </Container>
+
       <Container fluid>
         {selectedFile === '' || selectedFile === null ? (
           <EmptyDashboardContent />

@@ -1,7 +1,7 @@
 import { Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
-import textLogo from '../assets/images/text-logo.svg';
+import logo from '../assets/images/text-analyzer.svg';
 
 type NavigationButtonType = {
   to: string;
@@ -15,20 +15,20 @@ function NavEntry(props: NavigationButtonType) {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) =>
-        `d-flex flex-column align-items-center m-2 rounded-3 text-white fw-bold ${
-          isActive ? 'active-nav-link' : 'inactive-nav-link'
-        }`
-      }
+      className={({ isActive }) => `navlink ${isActive && 'active-nav-link'}`}
     >
-      <i className={icon}></i> {text}
+      <span>
+        <i className={icon}></i> {text}
+      </span>
     </NavLink>
   );
 }
 
 export default function Navigation() {
   return (
-    <Navbar className="d-flex flex-column flex-fill bg-primary card rounded-3 mx-2">
+    <Navbar className="nav">    
+      <img src={logo} className="d-inline-block align-top" alt="Logo" />   
+      <div className='horizontal-separator'></div>   
       <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
       <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
     </Navbar>

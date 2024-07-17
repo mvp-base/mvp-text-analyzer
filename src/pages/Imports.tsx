@@ -160,11 +160,14 @@ export default function Imports() {
 
   return (
     <Container
-      className="container-sm d-flex flex-column justify-content-start align-items-center"
+      className="d-flex flex-column justify-content-start align-items-center"
       fluid
     >
-      <h1>File managements</h1>
-      <Container fluid className="cardTransparent">
+      <Container fluid className="body-header">
+        <h1>File managements</h1>
+      </Container>
+
+      <Container className="cardTransparent">
         <h2>Import new file</h2>
 
         <div
@@ -176,7 +179,7 @@ export default function Imports() {
 
           {fileProcessing ? (
             <>
-            <p className='text-highlight'>Analyzing</p>
+              <p className="text-highlight">Analyzing</p>
               <Spinner variant="primary" animation="border" />
             </>
           ) : (
@@ -184,7 +187,7 @@ export default function Imports() {
               <i className="bi bi-upload fs-3"></i>
               <p>
                 Drop your file here or{' '}
-                <span className="text-highlight">Click here</span>
+                <span className="text-highlight">Click to select</span>
               </p>
               <p className="text-soft"> Supported file is only .TXT</p>
             </>
@@ -192,7 +195,7 @@ export default function Imports() {
         </div>
       </Container>
 
-      <Container fluid className="cardTransparent">
+      <Container className="cardTransparent">
         {submitResult && (
           <Alert
             variant={submitResult.variant}
@@ -204,15 +207,15 @@ export default function Imports() {
         )}
       </Container>
 
-      <Container fluid className="card">
+      <Container className="card">
         <h2>Imported files ({sortedFileNames.length})</h2>
-        <Table style={{ width: '800px' }}>
+        <Table>
           {sortedFileNames.length !== 0 ? (
             <>
               <thead>
                 <tr>
                   <th>File name</th>
-                  <th></th>
+                  <th className="text-end">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -223,7 +226,7 @@ export default function Imports() {
                       <td>
                         <i className={`bi bi-filetype-${fileType}`}></i> {key}
                       </td>
-                      <td className="d-flex gap-2">
+                      <td className="text-end">
                         <Button
                           variant="outline-danger"
                           onClick={() => {
