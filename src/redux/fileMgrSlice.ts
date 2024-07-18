@@ -1,20 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface RowData {
-  id: number;
-  row: string;
-  entities: any[];
-  topics: any[];
-  language: string;
-}
-
-interface filesInterface {
-  globalStats: any;
-  rows: RowData[];
-}
+import { IDashboardData } from '../interfaces/global';
 
 interface FileMgrInterface {
-  files: Record<string, filesInterface>;
+  files: Record<string, IDashboardData>;
   selectedFile: string;
 }
 

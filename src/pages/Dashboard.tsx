@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
 import { Container, Form } from 'react-bootstrap';
+import { IDashboardData } from '../interfaces/global';
 
 import {
   BarChart,
@@ -25,20 +26,7 @@ function EmptyDashboardContent() {
   );
 }
 
-interface RowData {
-  id: number;
-  row: string;
-  entities: any[];
-  topics: any[];
-  language: string;
-}
-
-interface DataInterface {
-  globalStats: any;
-  rows: RowData[];
-}
-
-function DashboardContent({ globalStats, rows }: DataInterface) {
+function DashboardContent({ globalTopics, rows }: IDashboardData) {
   const COLORS = [
     '#0088FE',
     '#00C49F',
@@ -48,25 +36,56 @@ function DashboardContent({ globalStats, rows }: DataInterface) {
     '#16538d',
   ];
 
+  const processedText = (text: string, entities: any) => {
+    const words = text.split(/\s+/);
+
+    const highligtedText = words.map((word: string) => {
+      const isMatching = entities.find(
+        (entity: any) => entity.matchedText.toLowerCase() === word.toLowerCase()
+      );
+
+      if (isMatching) {
+        return <span className="fw-bold">{word}</span>;
+      } else return <span>{word}</span>;
+    });
+
+    return highligtedText;
+  };
+
   return (
     <Container fluid>
       <ResponsiveContainer width="50%" height={300}>
         <PieChart>
           <Pie
-            data={globalStats}
+            data={globalTopics}
             nameKey="label"
             dataKey="count"
             outerRadius={100}
             fill="#8884d8"
             label
           >
-            {globalStats.map((entry: any, index: any) => (
+            {globalTopics.map((entry: any, index: any) => (
               <Cell key={`cell-${index}`} fill={COLORS[index]} />
             ))}
           </Pie>
           <Legend />
         </PieChart>
       </ResponsiveContainer>
+
+      <Container className="card">
+        <h2>Single Line Analysis</h2>
+        {rows.map((row, index) => {
+          if (row) {
+            return (
+              <Container fluid className="my-4" key={index}>
+                <div className="horizontal-separator bg-dark mb-3" />
+                {processedText(row.rowText, row.entities)}
+              </Container>
+            );
+          }
+          return null;
+        })}
+      </Container>
     </Container>
   );
 }
@@ -87,9 +106,8 @@ export default function Dashboard() {
 
   return (
     <Container fluid>
-      {/* <Container fluid className="body-header">
-        <h1>Dashboard</h1>
-      </Container> */}
+      <h1 className="m-3">Dashboard</h1>
+
       <Container>
         <Form.Select value={selectedFile} onChange={handleSelectionChange}>
           <option value="">No file selected</option>

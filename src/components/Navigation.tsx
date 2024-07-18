@@ -26,9 +26,9 @@ function NavEntry(props: NavigationButtonType) {
 
 export default function Navigation() {
   return (
-    <Navbar className="nav">    
-      <img src={logo} className="d-inline-block align-top" alt="Logo" />   
-      <div className='horizontal-separator'></div>   
+    <Navbar className="nav">
+      <img src={logo} className="d-inline-block align-top" alt="Logo" />
+      <div className="horizontal-separator bg-white" />
       <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
       <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
     </Navbar>

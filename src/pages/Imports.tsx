@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Button, Table, Row, Spinner, Alert } from 'react-bootstrap';
+import { Container, Button, Table, Spinner, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 
@@ -171,7 +171,7 @@ export default function Imports() {
         <h2>Import new file</h2>
 
         <div
-          {...getRootProps({
+          {...getRootProps({            
             className: `dropzone ${fileProcessing ? 'processing' : ''}`,
           })}
         >

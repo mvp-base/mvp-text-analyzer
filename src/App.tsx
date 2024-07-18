@@ -4,6 +4,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import Dashboard from './pages/Dashboard';
 import Navigation from './components/Navigation';
 import Imports from './pages/Imports';
+import Links from './components/Links';
 
 export default function App() {
   return (
@@ -14,7 +15,9 @@ export default function App() {
         {/* Desktop Layout */}
         <Row className="d-none d-md-flex flex-grow-1 m-0">
           <Container className="d-none d-md-flex flex-column flex-grow-1 m-0 p-0">
-          <Row className="m-0 py-4">Yo</Row>
+            <Row className="m-0 py-2">
+              <Links direction="row" />
+            </Row>
             <Row className="flex-grow-1 m-0 p-0">
               <Col md="auto" className="d-flex flex-column">
                 <Navigation />
