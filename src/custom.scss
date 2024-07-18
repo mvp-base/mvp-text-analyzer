@@ -32,7 +32,12 @@ $theme-colors: (
 //Adjust Global Elements
 
 #root {
+    background-color: $dark;
+}
+
+.body{
     background-color: $light;
+    border-radius: 20px 0 0 0;
 }
 
 .body-header {
@@ -51,12 +56,8 @@ $theme-colors: (
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: $primary;
     padding: 24px 0;
     gap: 16px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-
 }
 
 .navlink {

@@ -163,9 +163,9 @@ export default function Imports() {
       className="d-flex flex-column justify-content-start align-items-center"
       fluid
     >
-      <Container fluid className="body-header">
+      {/* <Container fluid className="body-header">
         <h1>File managements</h1>
-      </Container>
+      </Container> */}
 
       <Container className="cardTransparent">
         <h2>Import new file</h2>

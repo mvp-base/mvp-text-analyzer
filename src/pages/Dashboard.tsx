@@ -87,9 +87,9 @@ export default function Dashboard() {
 
   return (
     <Container fluid>
-      <Container fluid className="body-header">
+      {/* <Container fluid className="body-header">
         <h1>Dashboard</h1>
-      </Container>
+      </Container> */}
       <Container>
         <Form.Select value={selectedFile} onChange={handleSelectionChange}>
           <option value="">No file selected</option>
