@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './custom.scss';
+import './styles/global.scss';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 

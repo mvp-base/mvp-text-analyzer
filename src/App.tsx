@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 
+import styles from './App.module.scss'
 import Dashboard from './pages/Dashboard';
 import Navigation from './components/Navigation';
 import Imports from './pages/Imports';
@@ -9,16 +10,18 @@ import Links from './components/Links';
 export default function App() {
   return (
     <BrowserRouter>
-      <Container fluid id="MainLoyout" className="d-flex vh-100 m-0">
+      <Container fluid id="MainLoyout" className={styles['main-layout']}>
         {/* Mobile Layout */}
-        <Row className="d-md-none m-0"></Row>
+        <Row className={styles['mobile-container']}>
+
+        </Row>
         {/* Desktop Layout */}
-        <Row className="d-none d-md-flex flex-grow-1 m-0">
+        <Row className={styles['desktop-container']}>
           <Container className="d-none d-md-flex flex-column flex-grow-1 m-0 p-0">
-            <Row className="m-0 py-2">
+            <Row>
               <Links direction="row" />
             </Row>
-            <Row className="flex-grow-1 m-0 p-0">
+            <Row className="">
               <Col md="auto" className="d-flex flex-column">
                 <Navigation />
               </Col>

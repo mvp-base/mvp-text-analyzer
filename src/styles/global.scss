@@ -28,6 +28,11 @@ $theme-colors: (
     padding-right: 0;
 }
 
+.row{
+    margin: 0;
+    padding: 0;
+}
+
 
 //Adjust Global Elements
 
@@ -52,36 +57,7 @@ $theme-colors: (
     color: $light
 }
 
-.nav {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 24px 0;
-    gap: 16px;
-}
 
-.navlink {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px 20px;
-    margin: 0 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    color: $light;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.navlink:hover {
-    color: $dark;
-    background-color: $light;
-}
-
-.active-nav-link {
-    color: $dark;
-    background-color: $light;
-}
 
 .card {
     margin: 24px;
