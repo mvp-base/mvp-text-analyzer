@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
 import { Container, Form } from 'react-bootstrap';
+import styles from './Dashboard.module.scss';
 import { IDashboardData } from '../interfaces/global';
-
+import PageHeader from '../components/PageHeader';
+import InfoPopOver from '../components/InfoPopOver';
 import {
   BarChart,
   Bar,
@@ -18,11 +20,12 @@ import {
   Cell,
 } from 'recharts';
 
+
 function EmptyDashboardContent() {
   return (
-    <Container fluid>
-      <p>Please, select imported file to display analyzed data.</p>
-    </Container>
+    <>
+      <p>Please, select a file to display analyzed data.</p>
+    </>
   );
 }
 
@@ -43,34 +46,45 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
       const isMatching = entities.find(
         (entity: any) => entity.matchedText.toLowerCase() === word.toLowerCase()
       );
+      var displayedWord = '';
+
+      if (word !== '.') {
+        displayedWord = word + ' ';
+      }
 
       if (isMatching) {
-        return <span className="fw-bold">{word}</span>;
-      } else return <span>{word}</span>;
+        return <span className="fw-bold">{displayedWord}</span>;
+      } else return <span>{displayedWord}</span>;
     });
 
     return highligtedText;
   };
 
   return (
-    <Container fluid>
-      <ResponsiveContainer width="50%" height={300}>
-        <PieChart>
-          <Pie
-            data={globalTopics}
-            nameKey="label"
-            dataKey="count"
-            outerRadius={100}
-            fill="#8884d8"
-            label
-          >
-            {globalTopics.map((entry: any, index: any) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index]} />
-            ))}
-          </Pie>
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+    <>
+      <Container className="card">
+        <div>
+        <h2>Overall file analysis</h2>        
+        
+        </div>
+        <ResponsiveContainer width="50%" height={300}>
+          <PieChart>
+            <Pie
+              data={globalTopics}
+              nameKey="label"
+              dataKey="count"
+              outerRadius={100}
+              fill="#8884d8"
+              label
+            >
+              {globalTopics.map((entry: any, index: any) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+              ))}
+            </Pie>
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      </Container>
 
       <Container className="card">
         <h2>Single Line Analysis</h2>
@@ -86,7 +100,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
           return null;
         })}
       </Container>
-    </Container>
+    </>
   );
 }
 
@@ -105,8 +119,12 @@ export default function Dashboard() {
   };
 
   return (
-    <Container fluid>
-      <h1 className="m-3">Dashboard</h1>
+    <Container fluid className={styles['dashboard-container']}>
+      <PageHeader
+        text="Dashboard"
+        description="Select a file to view detailed analysis. The dashboard displays overall
+        topic distribution and single line analysis of the selected file."
+      />
 
       <Container>
         <Form.Select value={selectedFile} onChange={handleSelectionChange}>
@@ -117,7 +135,7 @@ export default function Dashboard() {
         </Form.Select>
       </Container>
 
-      <Container fluid>
+      <Container>
         {selectedFile === '' || selectedFile === null ? (
           <EmptyDashboardContent />
         ) : (

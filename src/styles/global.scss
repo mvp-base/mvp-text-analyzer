@@ -7,7 +7,6 @@ $danger: #df274f;
 $success: #2fbbb4;
 $warning: #e7da24;
 
-// Adjust Theme colors
 $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
@@ -22,45 +21,43 @@ $theme-colors: (
 // Import Sass AFTER defining custom colors
 @import '~bootstrap/scss/bootstrap';
 
-// Adjust React Components Styling
+//Adapt global html elements
+
+h1 {
+    margin: 12px;
+    font-size: 32px;
+    align-self: start;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
+    font-size: large;
+} 
+
+
+// Adapt Bootstrap components
 .container-fluid {
     padding-left: 0;
     padding-right: 0;
 }
 
-.row{
+.row {
     margin: 0;
     padding: 0;
 }
-
-
-//Adjust Global Elements
 
 #root {
     background-color: $dark;
 }
 
-.body{
-    background-color: $light;
-    border-radius: 20px 0 0 0;
-}
-
-.body-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    background-color: $primary;
-    padding: 4px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    color: $light
-}
-
-
+//Global styles
 
 .card {
-    margin: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     padding: 24px 48px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -70,27 +67,6 @@ $theme-colors: (
     background-color: transparent;
     width: fit-content;
     padding: 24px 48px;
-}
-
-.dropzone {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba($tetriary, 0.1);
-    border: 2px dashed $tetriary;
-    border-radius: 8px;
-    width: 450px;
-    height: 200px;
-    cursor: pointer;
-}
-
-.dropzone.processing {
-    border: 2px dashed rgba($dark, 0.1);
-}
-
-.dropzone p {
-    font-size: large;
 }
 
 .text-highlight {
@@ -105,12 +81,4 @@ $theme-colors: (
 .horizontal-separator {
     width: 80%;
     height: 1px;
-}
-
-h1 {
-    font-size: 32px;
-}
-
-h2 {
-    font-size: 24px;
 }

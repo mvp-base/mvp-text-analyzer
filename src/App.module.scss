@@ -3,10 +3,18 @@
 .main-layout {
   display: flex;
   margin: 0;
+  padding: 0;
   height: 100vh;
+  overflow: hidden;
 }
 
 .mobile-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+
   @include media-breakpoint-up(lg) {
     display: none;
   }
@@ -14,13 +22,19 @@
 
 .desktop-container {
   display: none;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto;
+
   @include media-breakpoint-up(lg) {
     display: flex;
   }
-  flex-direction: row;
-  flex-grow: 1;   
 }
 
 .body {
-    flex-grow: 1;    
+  flex-grow: 1;
+  background-color: $light;
+  border-radius: 20px 0 0 0;
+  overflow-y: auto;
 }

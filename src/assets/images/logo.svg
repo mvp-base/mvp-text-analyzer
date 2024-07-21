@@ -1,30 +1,24 @@
-<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.282 0.698486L16.282 12.6985C16.282 14.9076 14.4911 16.6985 12.282 16.6985L0.281982 16.6985L0.281982 4.69849C0.281982 2.48935 2.07284 0.698486 4.28198 0.698486L16.282 0.698486Z" fill="url(#paint0_linear_134_165)"/>
-<g filter="url(#filter0_di_134_165)">
-<path d="M4.91772 10.4507C4.91772 9.94399 5.32851 9.5332 5.83525 9.5332C6.34198 9.5332 6.75277 9.94399 6.75277 10.4507V12.0627C6.75277 12.5695 6.34198 12.9803 5.83525 12.9803C5.32851 12.9803 4.91772 12.5695 4.91772 12.0627V10.4507Z" fill="white"/>
-<path d="M7.3645 8.12504C7.3645 7.61831 7.77529 7.20752 8.28203 7.20752C8.78876 7.20752 9.19955 7.61831 9.19955 8.12504V11.9173C9.19955 12.424 8.78876 12.8348 8.28203 12.8348C7.77529 12.8348 7.3645 12.424 7.3645 11.9173V8.12504Z" fill="white"/>
-<path d="M9.81128 5.33415C9.81128 4.82742 10.2221 4.41663 10.7288 4.41663C11.2355 4.41663 11.6463 4.82742 11.6463 5.33415V12.0627C11.6463 12.5694 11.2355 12.9802 10.7288 12.9802C10.2221 12.9802 9.81128 12.5694 9.81128 12.0627V5.33415Z" fill="white"/>
+<svg width="42" height="40" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_139_64)">
+<path d="M40.1755 1.38694e-06L40.1755 31.7294C40.1755 35.3864 37.2109 38.3511 33.5539 38.3511H1.82446L1.82446 6.62167C1.82446 2.96462 4.78909 -1.59855e-07 8.44614 0L40.1755 1.38694e-06Z" fill="url(#paint0_linear_139_64)"/>
+<path d="M12.936 23.3754C12.936 22.1608 13.9206 21.1762 15.1352 21.1762C16.3498 21.1762 17.3345 22.1608 17.3345 23.3754V27.2393C17.3345 28.454 16.3498 29.4386 15.1352 29.4386C13.9206 29.4386 12.936 28.454 12.936 27.2393V23.3754Z" fill="white"/>
+<path d="M18.8007 17.8009C18.8007 16.5863 19.7854 15.6017 21 15.6017C22.2146 15.6017 23.1992 16.5863 23.1992 17.8009V26.8907C23.1992 28.1053 22.2146 29.09 21 29.09C19.7854 29.09 18.8007 28.1053 18.8007 26.8907V17.8009Z" fill="white"/>
+<path d="M24.6655 11.1113C24.6655 9.89669 25.6502 8.91205 26.8648 8.91205C28.0794 8.91205 29.064 9.89669 29.064 11.1113V27.2392C29.064 28.4538 28.0794 29.4384 26.8648 29.4384C25.6502 29.4384 24.6655 28.4538 24.6655 27.2392V11.1113Z" fill="white"/>
 </g>
 <defs>
-<filter id="filter0_di_134_165" x="3.91772" y="3.41663" width="8.72852" height="10.5636" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_139_64" x="0.824463" y="-1" width="40.3511" height="40.3511" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
 <feGaussianBlur stdDeviation="0.5"/>
 <feComposite in2="hardAlpha" operator="out"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.47 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_134_165"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_134_165" result="shape"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="0.35"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.146667 0 0 0 0 0.172857 0 0 0 0 0.183333 0 0 0 0.59 0"/>
-<feBlend mode="normal" in2="shape" result="effect2_innerShadow_134_165"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_139_64"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_139_64" result="shape"/>
 </filter>
-<linearGradient id="paint0_linear_134_165" x1="0.281982" y1="0.698486" x2="16.282" y2="16.6985" gradientUnits="userSpaceOnUse">
-<stop stop-color="#005E6E"/>
-<stop offset="1" stop-color="#04364A"/>
+<linearGradient id="paint0_linear_139_64" x1="21" y1="0" x2="21" y2="38.3511" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F18C56"/>
+<stop offset="1" stop-color="#A25E3B"/>
 </linearGradient>
 </defs>
 </svg>

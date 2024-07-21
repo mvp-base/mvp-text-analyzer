@@ -1,4 +1,5 @@
 import { Container } from 'react-bootstrap';
+import styles from './Links.module.scss';
 
 interface ILinks {
   direction: 'row' | 'column';
@@ -8,7 +9,9 @@ export default function Links(props: ILinks) {
   const { direction } = props;
 
   return (
-    <Container fluid className={`d-flex flex-${direction} gap-3 justify-content-end px-4`}>
+    <Container      
+      className={`${styles['links-container']} flex-${direction}`}
+    >
       <a
         href="https://github.com/vanm30"
         target="_blank"

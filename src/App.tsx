@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 
-import styles from './App.module.scss'
+import styles from './App.module.scss';
 import Dashboard from './pages/Dashboard';
 import Navigation from './components/Navigation';
 import Imports from './pages/Imports';
@@ -10,32 +10,36 @@ import Links from './components/Links';
 export default function App() {
   return (
     <BrowserRouter>
-      <Container fluid id="MainLoyout" className={styles['main-layout']}>
+      <Container fluid id="MainLayout" className={styles['main-layout']}>
         {/* Mobile Layout */}
-        <Row className={styles['mobile-container']}>
-
-        </Row>
+        <Container fluid className={styles['mobile-container']}>
+          <Row xs="auto">
+            <Navigation direction="row" />
+          </Row>
+          <Row id="Body" className={styles['body']}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/imports" element={<Imports />} />
+            </Routes>
+          </Row>
+        </Container>
         {/* Desktop Layout */}
-        <Row className={styles['desktop-container']}>
-          <Container className="d-none d-md-flex flex-column flex-grow-1 m-0 p-0">
-            <Row>
-              <Links direction="row" />
-            </Row>
-            <Row className="">
-              <Col md="auto" className="d-flex flex-column">
-                <Navigation />
-              </Col>
-              <Col className="d-flex flex-column body">
-                <Container fluid className="d-flex flex-fill m-0">
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/imports" element={<Imports />} />
-                  </Routes>
-                </Container>
-              </Col>
-            </Row>
-          </Container>
-        </Row>
+        <Container fluid className={styles['desktop-container']}>
+          <Row>
+            <Links direction="row" />
+          </Row>
+          <Row className="d-flex flex-row flex-grow-1">
+            <Col xs="auto">
+              <Navigation direction="column" />
+            </Col>
+            <Col id="Body" className={styles['body']}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/imports" element={<Imports />} />
+              </Routes>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     </BrowserRouter>
   );

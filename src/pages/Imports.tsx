@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Container, Button, Table, Spinner, Alert } from 'react-bootstrap';
+import { Container, Button, Table, Spinner, Toast } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-
-import { addFile, removeFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
-
+import { removeFile, clearSelectedFile } from '../redux/fileMgrSlice';
+import { analyzeFile } from '../util/fileAnalyzer';
+import styles from './Imports.module.scss';
 import ConfirmDialog from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
 
-import { IDashboardData } from '../interfaces/global';
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 interface IResults {
   variant: string;
@@ -26,112 +27,15 @@ export default function Imports() {
 
   const files = useSelector((state: RootState) => state.fileMgr.files);
   const sortedFileNames = Object.keys(files).sort();
-
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result as string);
-      };
-      reader.onerror = () => {
-        reject(new Error('Error reading file'));
-      };
-      reader.readAsText(file);
-    });
-  };
-
-  const handleImport = async (file: any) => {
-    setSubmitResult(null);
-
-    if (!file) {
-      setSubmitResult({ variant: 'warning', text: 'No file imported.' });
-      return;
-    }
-
-    setFileProcessing(true);
-
-    const dashboardData: IDashboardData = {
-      globalTopics: [],
-      rows: [],
-    };
-    const fileContent = await readFileContent(file);
-    const fileRows = fileContent.split('\n');
-
-    const apiKey = process.env.REACT_APP_TEXT_RAZOR_API_KEY || '';
-    const url = '/';
-
-    const promise = fileRows.map(async (row, index) => {
-      const data = new URLSearchParams({
-        extractors: 'entities,topics',
-        text: row,
-      }).toString();
-
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'x-textrazor-key': apiKey,
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: data,
-        });
-
-        if (!response.ok) {
-          throw new Error(`${response.statusText}`);
-        }
-
-        const result = await response.json();
-
-        //Parse Coarse Topics and save global stats
-        result.response.coarseTopics.forEach((topic: any) => {
-          const { label, wikiLink } = topic;
-          const globalTopic = dashboardData.globalTopics.find(
-            (stats) => stats.label === label
-          );
-
-          if (globalTopic) {
-            globalTopic.count++;
-          } else {
-            dashboardData.globalTopics.push({
-              label: label,
-              count: 1,
-              wikiLink: wikiLink,
-            });
-          }
-        });
-        //Filter only 6 most common topics
-        dashboardData.globalTopics.sort((a, b) => b.count - a.count);
-        dashboardData.globalTopics = dashboardData.globalTopics.slice(0, 6);
-
-        //Save Row data
-        dashboardData.rows[index] = {
-          id: index,
-          rowText: row,
-          entities: result.response.entities,
-          topics: result.response.topics,
-          language: result.response.language,
-        };
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    });
-
-    try {
-      await Promise.all(promise);
-      dispatch(addFile({ filename: file.name, data: dashboardData }));
-      setSubmitResult({
-        variant: 'success',
-        text: 'File successfully imported!',
-      });
-    } catch (error: any) {
-      console.error(error.message);
-    } finally {
-      setFileProcessing(false);
-    }
-  };
+  const selectedFile = useSelector(
+    (state: RootState) => state.fileMgr.selectedFile
+  );
 
   const handleDeleteFile = (filename: any) => {
     dispatch(removeFile({ filename }));
+    if (selectedFile === filename) {
+      dispatch(clearSelectedFile());
+    }
   };
 
   const handleCloseConfirmDeleteDialog = () => {
@@ -141,6 +45,7 @@ export default function Imports() {
 
   const handleAcceptConfirmDeleteDialog = () => {
     handleDeleteFile(keyToDelete);
+
     setKeyToDelete(null);
     setConfirmDialogShown(false);
   };
@@ -148,7 +53,23 @@ export default function Imports() {
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      handleImport(file);
+      if (file.size > MAX_FILE_SIZE) {
+        setSubmitResult({
+          variant: 'warning',
+          text: 'File size exceeds 5MB.',
+        });
+        return;
+      }
+
+      setFileProcessing(true);
+
+      analyzeFile(
+        file,
+        process.env.REACT_APP_TEXT_RAZOR_API_KEY || '',
+        dispatch
+      )
+        .then((result) => setSubmitResult(result))
+        .finally(() => setFileProcessing(false));
     }
   };
 
@@ -159,24 +80,20 @@ export default function Imports() {
   });
 
   return (
-    <Container
-      className="d-flex flex-column justify-content-start align-items-center"
-      fluid
-    >
-      {/* <Container fluid className="body-header">
-        <h1>File managements</h1>
-      </Container> */}
+    <Container fluid className={styles['imports-container']}>
+      <PageHeader
+        text="Imports"
+        description="Upload and analyze text files. Manage imported files."
+      />
 
       <Container className="cardTransparent">
         <h2>Import new file</h2>
-
         <div
-          {...getRootProps({            
-            className: `dropzone ${fileProcessing ? 'processing' : ''}`,
+          {...getRootProps({
+            className: `${styles['dropzone']} ${fileProcessing ? 'processing' : ''}`,
           })}
         >
           <input {...getInputProps()} />
-
           {fileProcessing ? (
             <>
               <p className="text-highlight">Analyzing</p>
@@ -193,18 +110,6 @@ export default function Imports() {
             </>
           )}
         </div>
-      </Container>
-
-      <Container className="cardTransparent">
-        {submitResult && (
-          <Alert
-            variant={submitResult.variant}
-            onClose={() => setSubmitResult(null)}
-            dismissible
-          >
-            <p>{submitResult.text}</p>
-          </Alert>
-        )}
       </Container>
 
       <Container className="card">
@@ -257,6 +162,21 @@ export default function Imports() {
         handleClose={handleCloseConfirmDeleteDialog}
         handleAccept={handleAcceptConfirmDeleteDialog}
       />
+
+      <Toast
+        style={{
+          position: 'fixed',
+          bottom: '1rem',
+          right: '1rem',
+        }}
+        onClose={() => setSubmitResult(null)}
+        show={submitResult !== null}
+        delay={5000}
+        autohide
+        bg={submitResult?.variant}
+      >
+        <Toast.Body>{submitResult?.text}</Toast.Body>
+      </Toast>
     </Container>
   );
 }
