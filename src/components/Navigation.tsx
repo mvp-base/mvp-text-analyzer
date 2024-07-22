@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.svg';
 import logoText from '../assets/images/text-analyzer.svg';
 
 interface INavigation {
-  direction: 'row' | 'column';
+  direction: 'horizontal' | 'vertical';
 }
 
 interface INavigationButton {
@@ -36,10 +36,8 @@ export default function Navigation(props: INavigation) {
 
   return (
     <Navbar className={`${styles['nav']} ${styles[direction]}`}>
-      <img src={direction === 'column' ? logoText : logo} alt="Logo" />
-      {direction === 'column' && (
-        <div className="horizontal-separator-light" />
-      )}
+      <img src={direction === 'vertical' ? logoText : logo} alt="Logo" />
+      <div className="horizontal-separator bg-white" />
       <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
       <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
     </Navbar>

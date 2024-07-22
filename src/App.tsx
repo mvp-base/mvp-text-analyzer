@@ -14,7 +14,7 @@ export default function App() {
         {/* Mobile Layout */}
         <Container fluid className={styles['mobile-container']}>
           <Row xs="auto">
-            <Navigation direction="row" />
+            <Navigation direction="horizontal" />
           </Row>
           <Row id="Body" className={styles['body']}>
             <Routes>
@@ -26,11 +26,11 @@ export default function App() {
         {/* Desktop Layout */}
         <Container fluid className={styles['desktop-container']}>
           <Row>
-            <Links direction="row" />
+            <Links direction="horizontal" />
           </Row>
           <Row className={styles['nav-body-container']}>
             <Col xs="auto">
-              <Navigation direction="column" />
+              <Navigation direction="vertical" />
             </Col>
             <Col id="Body" className={styles['body']}>
               <Routes>

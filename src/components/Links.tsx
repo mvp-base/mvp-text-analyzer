@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 import styles from './Links.module.scss';
 
 interface ILinks {
-  direction: 'row' | 'column';
+  direction: 'horizontal' | 'vertical';
 }
 
 export default function Links(props: ILinks) {

@@ -3,14 +3,14 @@
 .nav {
   display: flex;
   flex-grow: 1;
-  padding: 24px 0;
+  padding: 24px 0px;
   gap: 16px;
 
-  &.row {
+  &.horizontal {
     flex-direction: row;
   }
 
-  &.column {
+  &.vertical {
     flex-direction: column;
   }
 }
