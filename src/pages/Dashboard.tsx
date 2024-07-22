@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFile } from '../redux/fileMgrSlice';
 import { RootState } from '../redux/store';
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, OverlayTrigger, Popover } from 'react-bootstrap';
 import styles from './Dashboard.module.scss';
 import { IDashboardData } from '../interfaces/global';
 import PageHeader from '../components/PageHeader';
@@ -40,19 +40,34 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
   const processedText = (text: string, entities: any) => {
     const words = text.split(/\s+/);
 
-    const highligtedText = words.map((word: string) => {
-      const isMatching = entities.find(
-        (entity: any) => entity.matchedText.toLowerCase() === word.toLowerCase()
+    const highligtedText = words.map((word: string, index) => {
+      const matchedEntity = entities.find(
+        (entity: any) =>
+          entity.matchedText.toLowerCase() === word.trim().toLowerCase()
       );
-      var displayedWord = '';
 
-      if (word !== '.') {
-        displayedWord = word + ' ';
-      }
+      const popover = (
+        <Popover id={`popover-${index}`}>
+          <Popover.Body>{matchedEntity?.wikiLink}</Popover.Body>
+        </Popover>
+      );
 
-      if (isMatching) {
-        return <span className="fw-bold">{displayedWord}</span>;
-      } else return <span>{displayedWord}</span>;
+      return (
+        <>
+          {index > 0 && <span> </span>}
+          {matchedEntity ? (
+            <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="bottom"
+              overlay={popover}
+            >
+              <span className={styles['analyzed-word']}>{word}</span>
+            </OverlayTrigger>
+          ) : (
+            <span>{word}</span>
+          )}
+        </>
+      );
     });
 
     return highligtedText;
@@ -130,12 +145,15 @@ export default function Dashboard() {
       />
 
       <Container>
-        <Form.Select value={selectedFile} onChange={handleSelectionChange}>
-          <option value="">No file selected</option>
-          {sortedFileNames.map((key, index) => {
-            return <option key={index}>{key}</option>;
-          })}
-        </Form.Select>
+        <Form className={styles['select-file-form']}>
+          <Form.Label>Select file</Form.Label>
+          <Form.Select value={selectedFile} onChange={handleSelectionChange}>
+            <option value="">No file selected</option>
+            {sortedFileNames.map((key, index) => {
+              return <option key={index}>{key}</option>;
+            })}
+          </Form.Select>
+        </Form>
       </Container>
 
       <Container>

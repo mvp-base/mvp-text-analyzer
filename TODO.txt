@@ -1,0 +1,5 @@
+Known bugs:
+- Textrazor sometimes returns bad request
+
+Improvements:
+- img to Bootstrap Image 
