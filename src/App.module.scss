@@ -32,6 +32,12 @@
   }
 }
 
+.nav-body-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
 .body {
   flex-grow: 1;
   background-color: $light;

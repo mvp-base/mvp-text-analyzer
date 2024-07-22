@@ -9,9 +9,7 @@ export default function Links(props: ILinks) {
   const { direction } = props;
 
   return (
-    <Container      
-      className={`${styles['links-container']} flex-${direction}`}
-    >
+    <Container className={`${styles['links-container']} ${styles[direction]}`}>
       <a
         href="https://github.com/vanm30"
         target="_blank"

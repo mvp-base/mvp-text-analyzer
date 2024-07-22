@@ -90,7 +90,9 @@ export default function Imports() {
         <h2>Import new file</h2>
         <div
           {...getRootProps({
-            className: `${styles['dropzone']} ${fileProcessing ? 'processing' : ''}`,
+            className: `${styles['dropzone']} ${
+              fileProcessing && styles['processing']
+            }`,
           })}
         >
           <input {...getInputProps()} />

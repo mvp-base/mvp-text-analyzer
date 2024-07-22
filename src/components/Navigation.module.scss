@@ -1,31 +1,39 @@
 @import '../styles/global.scss';
 
 .nav {
-    display: flex;
-    flex-grow: 1;
-    padding: 24px 0;
-    gap: 16px;
+  display: flex;
+  flex-grow: 1;
+  padding: 24px 0;
+  gap: 16px;
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
 }
 
 .nav-link {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px 20px;
-    margin: 0 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    color: $light;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 20px;
+  margin: 0 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: $light;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 
-.nav-link:hover {
+  &:hover {
     color: $dark;
     background-color: $light;
+  }
 }
 
 .active-nav-link {
-    color: $dark;
-    background-color: $light;
+  color: $dark;
+  background-color: $light;
 }

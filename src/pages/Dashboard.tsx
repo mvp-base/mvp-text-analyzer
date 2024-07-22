@@ -6,7 +6,6 @@ import { Container, Form } from 'react-bootstrap';
 import styles from './Dashboard.module.scss';
 import { IDashboardData } from '../interfaces/global';
 import PageHeader from '../components/PageHeader';
-import InfoPopOver from '../components/InfoPopOver';
 import {
   BarChart,
   Bar,
@@ -19,7 +18,6 @@ import {
   PieChart,
   Cell,
 } from 'recharts';
-
 
 function EmptyDashboardContent() {
   return (
@@ -64,8 +62,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
     <>
       <Container className="card">
         <div>
-        <h2>Overall file analysis</h2>        
-        
+          <h2>Overall file analysis</h2>
         </div>
         <ResponsiveContainer width="50%" height={300}>
           <PieChart>
@@ -91,8 +88,14 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
         {rows.map((row, index) => {
           if (row) {
             return (
-              <Container fluid className="my-4" key={index}>
-                <div className="horizontal-separator bg-dark mb-3" />
+              <Container
+                fluid
+                className={styles['line-analysis-row']}
+                key={index}
+              >
+                <div
+                  className={`${styles['separator-margin']}} horizontal-separator-dark`}
+                />
                 {processedText(row.rowText, row.entities)}
               </Container>
             );

@@ -28,7 +28,7 @@ export default function App() {
           <Row>
             <Links direction="row" />
           </Row>
-          <Row className="d-flex flex-row flex-grow-1">
+          <Row className={styles['nav-body-container']}>
             <Col xs="auto">
               <Navigation direction="column" />
             </Col>

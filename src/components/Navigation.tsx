@@ -34,21 +34,14 @@ function NavEntry(props: INavigationButton) {
 export default function Navigation(props: INavigation) {
   const { direction } = props;
 
-  if (direction === 'column') {
-    return (
-      <Navbar className={`${styles['nav']} flex-${direction}`}>
-        <img src={logoText} alt="Logo" />
-        <div className="horizontal-separator bg-white" />
-        <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
-        <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
-      </Navbar>
-    );
-  } else
-    return (
-      <Navbar className={`${styles['nav']} flex-${direction}`}>
-        <img src={logo} alt="Logo" />
-        <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
-        <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
-      </Navbar>
-    );
+  return (
+    <Navbar className={`${styles['nav']} ${styles[direction]}`}>
+      <img src={direction === 'column' ? logoText : logo} alt="Logo" />
+      {direction === 'column' && (
+        <div className="horizontal-separator-light" />
+      )}
+      <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
+      <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
+    </Navbar>
+  );
 }

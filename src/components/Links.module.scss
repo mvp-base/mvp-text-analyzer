@@ -1,7 +1,15 @@
 @import '../styles/global.scss';
 
 .links-container {
-    display: flex;
-    gap: 16px;
-    justify-content: end;
+  display: flex;
+  gap: 16px;
+  justify-content: end;
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
 }
