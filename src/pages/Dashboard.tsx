@@ -41,7 +41,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
     const words = text.split(/\s+/);
 
     const highligtedText = words.map((word: string, index) => {
-      const matchedEntity = entities.find(
+      const matchedEntity = entities?.find(
         (entity: any) =>
           entity.matchedText.toLowerCase() === word.trim().toLowerCase()
       );
