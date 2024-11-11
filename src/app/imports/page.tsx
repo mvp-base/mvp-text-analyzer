@@ -1,13 +1,15 @@
+'use client';
+
 import { useState } from 'react';
 import { Container, Button, Table, Spinner, Toast } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import { RootState } from '../redux/store';
-import { removeFile, clearSelectedFile } from '../redux/fileMgrSlice';
-import { analyzeFile } from '../util/fileAnalyzer';
-import styles from './Imports.module.scss';
-import ConfirmDialog from '../components/ConfirmDialog';
-import PageHeader from '../components/PageHeader';
+import { RootState } from '../../redux/store';
+import { removeFile, clearSelectedFile } from '../../redux/fileMgrSlice';
+import { analyzeFile } from '../../util/fileAnalyzer';
+
+import ConfirmDialog from '../../components/ConfirmDialog';
+import PageHeader from '../../components/PageHeader';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -80,7 +82,7 @@ export default function Imports() {
   });
 
   return (
-    <Container fluid className={styles['imports-container']}>
+    <Container fluid>
       <PageHeader
         text="Imports"
         description="Upload and analyze text files. Manage imported files."
@@ -89,11 +91,7 @@ export default function Imports() {
       <Container className="cardTransparent">
         <h2>Import new file</h2>
         <div
-          {...getRootProps({
-            className: `${styles['dropzone']} ${
-              fileProcessing && styles['processing']
-            }`,
-          })}
+          {...getRootProps({})}
         >
           <input {...getInputProps()} />
           {fileProcessing ? (
@@ -116,43 +114,42 @@ export default function Imports() {
 
       <Container className="card">
         <h2>Imported files ({sortedFileNames.length})</h2>
-        <Table>
-          {sortedFileNames.length !== 0 ? (
-            <>
-              <thead>
-                <tr>
-                  <th>File name</th>
-                  <th className="text-end">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedFileNames.map((key, index) => {
-                  const fileType = key.split('.').pop();
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <i className={`bi bi-filetype-${fileType}`}></i> {key}
-                      </td>
-                      <td className="text-end">
-                        <Button
-                          variant="outline-danger"
-                          onClick={() => {
-                            setKeyToDelete(key);
-                            setConfirmDialogShown(true);
-                          }}
-                        >
-                          <i className="bi bi-trash"></i>
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </>
-          ) : (
-            <p>No files imported yet.</p>
-          )}
-        </Table>
+        {sortedFileNames.length !== 0 ? (
+
+          <Table>
+            <thead>
+              <tr>
+                <th>File name</th>
+                <th className="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedFileNames.map((key, index) => {
+                const fileType = key.split('.').pop();
+                return (
+                  <tr key={index}>
+                    <td>
+                      <i className={`bi bi-filetype-${fileType}`}></i> {key}
+                    </td>
+                    <td className="text-end">
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => {
+                          setKeyToDelete(key);
+                          setConfirmDialogShown(true);
+                        }}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        ) : (
+          <p>No files imported yet.</p>
+        )}
       </Container>
 
       <ConfirmDialog

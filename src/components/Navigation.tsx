@@ -1,8 +1,7 @@
-import { Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import styles from './Navigation.module.scss';
-import logo from '../assets/images/logo.svg';
-import logoText from '../assets/images/text-analyzer.svg';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface INavigation {
   direction: 'horizontal' | 'vertical';
@@ -16,18 +15,16 @@ interface INavigationButton {
 
 function NavEntry(props: INavigationButton) {
   const { text, icon, to } = props;
+  const pathname = usePathname();
+
+  const isActive = pathname === to;
 
   return (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        `${styles['nav-link']} ${isActive && styles['active-nav-link']}`
-      }
-    >
-      <span>
+    <Link href={to}>
+      <span className={isActive ? 'active': ''}>
         <i className={icon}></i> {text}
       </span>
-    </NavLink>
+    </Link>
   );
 }
 
@@ -35,11 +32,11 @@ export default function Navigation(props: INavigation) {
   const { direction } = props;
 
   return (
-    <Navbar className={`${styles['nav']} ${styles[direction]}`}>
-      <img src={direction === 'vertical' ? logoText : logo} alt="Logo" />
+    <div>
+      <img src={direction === 'vertical' ? '/images/text-analyzer.svg' : '/images/logo.svg'} alt="Logo" />
       <div className="horizontal-separator bg-white" />
-      <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
+      <NavEntry to="/dashboard" icon="bi bi-bar-chart" text="DASHBOARD" />
       <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
-    </Navbar>
+    </div>
   );
 }

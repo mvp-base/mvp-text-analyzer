@@ -1,11 +1,12 @@
+'use client';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedFile } from '../redux/fileMgrSlice';
-import { RootState } from '../redux/store';
+import { setSelectedFile } from '@/redux/fileMgrSlice';
+import { RootState } from '@/redux/store';
 import { Container, Form, OverlayTrigger, Popover } from 'react-bootstrap';
-import styles from './Dashboard.module.scss';
-import { IDashboardData } from '../interfaces/global';
-import PageHeader from '../components/PageHeader';
+import { IDashboardData } from '@/interfaces/global';
+import PageHeader from '@/components/PageHeader';
 import {
   BarChart,
   Bar,
@@ -41,7 +42,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
     const words = text.split(/\s+/);
 
     const highligtedText = words.map((word: string, index) => {
-      const matchedEntity = entities.find(
+      const matchedEntity = entities?.find(
         (entity: any) =>
           entity.matchedText.toLowerCase() === word.trim().toLowerCase()
       );
@@ -61,7 +62,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
               placement="bottom"
               overlay={popover}
             >
-              <span className={styles['analyzed-word']}>{word}</span>
+              <span>{word}</span>
             </OverlayTrigger>
           ) : (
             <span>{word}</span>
@@ -104,12 +105,11 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
           if (row) {
             return (
               <Container
-                fluid
-                className={styles['line-analysis-row']}
+                fluid              
                 key={index}
               >
                 <div
-                  className={`${styles['separator-margin']}} horizontal-separator-dark`}
+                  className={`horizontal-sepaarator-dark`}
                 />
                 {processedText(row.rowText, row.entities)}
               </Container>
@@ -137,7 +137,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Container fluid className={styles['dashboard-container']}>
+    <Container fluid >
       <PageHeader
         text="Dashboard"
         description="Select a file to view detailed analysis. The dashboard displays overall
@@ -145,7 +145,7 @@ export default function Dashboard() {
       />
 
       <Container>
-        <Form className={styles['select-file-form']}>
+        <Form>
           <Form.Label>Select file</Form.Label>
           <Form.Select value={selectedFile} onChange={handleSelectionChange}>
             <option value="">No file selected</option>
