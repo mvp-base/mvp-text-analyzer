@@ -1,11 +1,6 @@
 import { Container } from 'react-bootstrap';
 
-interface ILinks {
-  direction: 'horizontal' | 'vertical';
-}
-
-export default function Links(props: ILinks) {
-  const { direction } = props;
+export default function Links() {
 
   return (    
     <Container>

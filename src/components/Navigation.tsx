@@ -2,18 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Navbar } from 'react-bootstrap';
 
-interface INavigation {
-  direction: 'horizontal' | 'vertical';
-}
+import styles from './Navigation.module.scss'
 
-interface INavigationButton {
+interface INavButton {
   to: string;
   text: string;
   icon?: string;
 }
 
-function NavEntry(props: INavigationButton) {
+interface INavIcon {
+  to: string;
+  iconSrc: string;
+}
+
+function NavButton(props: INavButton) {
   const { text, icon, to } = props;
   const pathname = usePathname();
 
@@ -21,22 +25,30 @@ function NavEntry(props: INavigationButton) {
 
   return (
     <Link href={to}>
-      <span className={isActive ? 'active': ''}>
+      <span className={isActive ? 'active' : ''}>
         <i className={icon}></i> {text}
       </span>
     </Link>
   );
 }
 
-export default function Navigation(props: INavigation) {
-  const { direction } = props;
+function NavIcon(props: INavIcon) {
+  const { iconSrc, to } = props;
 
   return (
-    <div>
-      <img src={direction === 'vertical' ? '/images/text-analyzer.svg' : '/images/logo.svg'} alt="Logo" />
-      <div className="horizontal-separator bg-white" />
-      <NavEntry to="/dashboard" icon="bi bi-bar-chart" text="DASHBOARD" />
-      <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
-    </div>
+    <Link href={to} className={styles.navLink}>
+      <img src={iconSrc} alt="Logo" />
+    </Link>
+  );
+}
+
+export default function Navigation() {
+  return (
+    <Navbar className={`${styles.nav} ${styles.vertical}`}>
+      <NavIcon to="/" iconSrc="/images/text-analyzer.svg" />
+      <div className="horizontal-separator-dark" />
+      <NavButton to="/dashboard" icon="bi bi-bar-chart" text="DASHBOARD" />
+      <NavButton to="/imports" icon="bi bi-upload" text="IMPORTS" />
+    </Navbar>
   );
 }

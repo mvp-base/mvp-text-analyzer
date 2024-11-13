@@ -1,0 +1,40 @@
+@use '@/styles/colors.scss' as *;
+
+.nav {
+    display: flex;
+    flex-grow: 1;
+    padding: 24px 0px;
+    gap: 16px;
+    border-right: black;
+  
+    &.horizontal {
+      flex-direction: row;
+    }
+  
+    &.vertical {
+      flex-direction: column;
+    }
+  }
+  
+  .navLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 20px;
+    margin: 0 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: $light;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      color: $dark;
+      background-color: $light;
+    }
+  }
+  
+  .active-nav-link {
+    color: $dark;
+    background-color: $light;
+  }

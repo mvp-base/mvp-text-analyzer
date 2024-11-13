@@ -1,3 +1,5 @@
+'use client';
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDashboardData } from '../interfaces/global';
 
@@ -11,9 +13,11 @@ const initialState: FileMgrInterface = {
   selectedFile: '',
 };
 
-const localStorageData = localStorage.getItem('files');
-if (localStorageData) {
-  initialState.files = JSON.parse(localStorageData);
+if (typeof window !== "undefined") {
+  const localStorageData = localStorage.getItem('files');
+  if (localStorageData) {
+    initialState.files = JSON.parse(localStorageData);
+  }
 }
 
 const fileMgrSlice = createSlice({

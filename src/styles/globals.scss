@@ -1,0 +1,75 @@
+@use './colors.scss' as *;
+
+@import "~bootstrap/scss/bootstrap";
+
+
+// Global Styles (for body, headings, etc.)
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    margin: 12px;
+    font-size: 32px;
+    align-self: start;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
+    font-size: large;
+}
+
+// Adapt Bootstrap components
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .row {
+    margin: 0;
+    padding: 0;
+  }
+  
+  #root {
+    background-color: $dark;
+  }
+  
+  //Global styles
+  
+  .card {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 24px 48px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .cardTransparent {
+    margin: 8px;
+    background-color: transparent;
+    width: fit-content;
+    padding: 24px 48px;
+  }
+  
+  .text-highlight {
+    color: $primary;
+    font-weight: bold;
+  }
+  
+  .text-soft {
+    font-weight: lighter;
+  }
+  
+  .horizontal-separator-dark {
+    width: 80%;
+    height: 1px;
+    background-color: $dark;
+  }
+  
+  .horizontal-separator-light {
+    width: 80%;
+    height: 1px;
+    background-color: $light;
+  }
