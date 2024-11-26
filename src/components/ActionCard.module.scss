@@ -1,0 +1,32 @@
+@use '@/styles/colors.scss' as *;
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: $light;
+}
+
+.container h1 {
+    font-size: larger;
+    font-weight: bold;
+    margin: 0;
+}
+
+.container p {
+    font-size: medium;
+    margin: 0;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    text-align: left;
+}
+
+.coverImage {
+    width: 80px;
+}

@@ -5,11 +5,12 @@
 }
 
 .desktopContainer {
+    display: flex;
     flex-direction: column;
     flex-grow: 1;
     overflow-y: auto;
 }
-
+    
 .card {
     margin-top: 24px;
     margin-bottom: 24px;

@@ -4,9 +4,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFile } from '@/redux/fileMgrSlice';
 import { RootState } from '@/redux/store';
-import { Container, Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Container, Form, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
 import { IDashboardData } from '@/interfaces/global';
 import PageHeader from '@/components/PageHeader';
+import ActionCard from '@/components/ActionCard';
+import DashboardCard from '@/components/DashboardCard';
 import {
   BarChart,
   Bar,
@@ -20,11 +22,17 @@ import {
   Cell,
 } from 'recharts';
 
+import styles from './dashboard.module.scss'
+
 function EmptyDashboardContent() {
   return (
-    <>
-      <p>Please, select a file to display analyzed data.</p>
-    </>
+    <Container>
+      <Row className={styles.dashboard}>
+        <Col xs={12} md={6}>
+          <DashboardCard header='No File Selected' caption='Please, select a file to display analyzed data.' />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
@@ -105,7 +113,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
           if (row) {
             return (
               <Container
-                fluid              
+                fluid
                 key={index}
               >
                 <div
@@ -137,14 +145,27 @@ export default function Dashboard() {
   };
 
   return (
-    <Container fluid >
+    <Container className='flexCol' fluid>
       <PageHeader
         text="Dashboard"
         description="Select a file to view detailed analysis. The dashboard displays overall
         topic distribution and single line analysis of the selected file."
       />
+      <Container className={styles.actionContainer}>
+        <Row>
+          <Col xs={12} md={4}>
+            <ActionCard header="ACTIVE FILE" caption="number of files imported" image="/images/file.png" />
+          </Col>
+          <Col xs={12} md={4}>
+            <ActionCard header="IMPORTED FILES" caption="number of files imported" image="/images/file.png" />
+          </Col>
+          <Col xs={12} md={4}>
+            <ActionCard header="GUIDE" caption="number of files imported" image="/images/file.png" />
+          </Col>
+        </Row>
+      </Container>
 
-      <Container>
+      {/* <Container>
         <Form>
           <Form.Label>Select file</Form.Label>
           <Form.Select value={selectedFile} onChange={handleSelectionChange}>
@@ -154,9 +175,9 @@ export default function Dashboard() {
             })}
           </Form.Select>
         </Form>
-      </Container>
+      </Container> */}
 
-      <Container>
+      <Container className={styles.dashboard}>
         {selectedFile === '' || selectedFile === null ? (
           <EmptyDashboardContent />
         ) : (

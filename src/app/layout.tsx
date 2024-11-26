@@ -33,14 +33,19 @@ export default function RootLayout({ children }: IRootLayout) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider store={store}>
           <Container fluid id="mainLayout" className={styles.mainLayout}>
-            <Row>
-              <Links/>
-            </Row>
-            <Row>
-              <Col xs="auto" id="nav">
+            {/* Optional Links Row */}
+            {/* <Row>
+              <Links />
+            </Row> */}
+
+            <Row className="flex-grow-1 flex-column flex-md-row">
+              {/* Navigation with Fixed Width */}
+              <Col md={2} id="nav">
                 <Navigation />
               </Col>
-              <Col id="main" className={styles.desktopContainer}>
+
+              {/* Main Content with Flexible Width */}
+              <Col id="main" className={`${styles.desktopContainer}`}>
                 {children}
               </Col>
             </Row>
