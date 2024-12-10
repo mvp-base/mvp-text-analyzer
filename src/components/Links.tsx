@@ -1,15 +1,9 @@
 import { Container } from 'react-bootstrap';
-import styles from './Links.module.scss';
 
-interface ILinks {
-  direction: 'horizontal' | 'vertical';
-}
+export default function Links() {
 
-export default function Links(props: ILinks) {
-  const { direction } = props;
-
-  return (
-    <Container className={`${styles['links-container']} ${styles[direction]}`}>
+  return (    
+    <Container>
       <a
         href="https://github.com/vanm30"
         target="_blank"

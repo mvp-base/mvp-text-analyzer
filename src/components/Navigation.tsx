@@ -1,45 +1,81 @@
-import { Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import styles from './Navigation.module.scss';
-import logo from '../assets/images/logo.svg';
-import logoText from '../assets/images/text-analyzer.svg';
+'use client';
 
-interface INavigation {
-  direction: 'horizontal' | 'vertical';
-}
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Navbar, Col, Row, Image } from 'react-bootstrap';
 
-interface INavigationButton {
+import styles from './Navigation.module.scss'
+import Button from '@/components/Button'
+
+interface INavButton {
   to: string;
   text: string;
   icon?: string;
 }
 
-function NavEntry(props: INavigationButton) {
+interface INavIcon {
+  to: string;
+  iconSrc: string;
+}
+
+function NavButton(props: INavButton) {
   const { text, icon, to } = props;
 
+  const pathname = usePathname();
+  const isActive = pathname === to;
+
+  const adaptedIcon = isActive ? `${icon}-fill` : icon;
+
   return (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        `${styles['nav-link']} ${isActive && styles['active-nav-link']}`
-      }
-    >
-      <span>
-        <i className={icon}></i> {text}
+    <Link href={to} style={{ textDecoration: 'none' }}>
+      <span className={`${styles.navLink} ${isActive && styles.active}`}>
+        <i className={`${styles.buttonImage} ${adaptedIcon}`}></i>
+        {text}
       </span>
-    </NavLink>
+    </Link>
   );
 }
 
-export default function Navigation(props: INavigation) {
-  const { direction } = props;
+function NavHome() {
+  const pathname = usePathname();
+  const isActive = pathname === '/';
+
+  const adaptedLogo = isActive ? '/images/ta-logo-fill.png' : '/images/ta-logo.png';
 
   return (
-    <Navbar className={`${styles['nav']} ${styles[direction]}`}>
-      <img src={direction === 'vertical' ? logoText : logo} alt="Logo" />
-      <div className="horizontal-separator bg-white" />
-      <NavEntry to="/" icon="bi bi-bar-chart" text="DASHBOARD" />
-      <NavEntry to="/imports" icon="bi bi-upload" text="IMPORTS" />
+    <Link href="/" className={`${styles.navLink} ${isActive && styles.active}`}>
+      <Row>
+        <Col>
+          <div className='primaryCard'>
+            <Image className={styles.logoImage} src={adaptedLogo} alt="Logo" />
+          </div>
+        </Col>
+        <Col className={styles.logoText}>
+          <Row>TEXT</Row>
+          <Row>ANALYZER</Row>
+        </Col>
+      </Row>
+    </Link >
+  );
+}
+
+export default function Navigation() {
+  return (
+    <Navbar className={styles.nav}>
+      <div className={styles.navSide}>
+        <NavHome />
+      </div>
+      <div className={styles.navBody} >
+        <NavButton to="/dashboard" icon="bi bi-grid-1x2" text="DASHBOARD" />
+        <NavButton to="/imports" icon="bi bi-file-earmark-arrow-up" text="IMPORTS" />
+      </div>
+      <div className={styles.navSide}>
+        <div className={`${styles.profileCard} primaryCard`}>
+          <Image rounded className={styles.profileImage} src='/images/profile-default.png'></Image>
+          <Row>View Profile</Row>          
+          <Button style='primary' color='red' text="COMING SOON"></Button>
+        </div>
+      </div>
     </Navbar>
   );
 }

@@ -1,13 +1,19 @@
+'use client';
+
 import { useState } from 'react';
-import { Container, Button, Table, Spinner, Toast } from 'react-bootstrap';
+import { Container, Button, Table, Spinner, Toast, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import { RootState } from '../redux/store';
-import { removeFile, clearSelectedFile } from '../redux/fileMgrSlice';
-import { analyzeFile } from '../util/fileAnalyzer';
-import styles from './Imports.module.scss';
-import ConfirmDialog from '../components/ConfirmDialog';
-import PageHeader from '../components/PageHeader';
+import { RootState } from '../../redux/store';
+import { removeFile, clearSelectedFile } from '../../redux/fileMgrSlice';
+import { analyzeFile } from '../../util/fileAnalyzer';
+
+import DashboardCard from '@/components/cards/DashboardCard';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import Header from '../../components/Header';
+import ActionCards from '@/components/cards/ActionCards';
+
+import styles from './imports.module.scss'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -27,6 +33,7 @@ export default function Imports() {
 
   const files = useSelector((state: RootState) => state.fileMgr.files);
   const sortedFileNames = Object.keys(files).sort();
+
   const selectedFile = useSelector(
     (state: RootState) => state.fileMgr.selectedFile
   );
@@ -80,19 +87,23 @@ export default function Imports() {
   });
 
   return (
-    <Container fluid className={styles['imports-container']}>
-      <PageHeader
+    <Container fluid>
+      <Header
         text="Imports"
         description="Upload and analyze text files. Manage imported files."
+        size={1}
       />
 
-      <Container className="cardTransparent">
-        <h2>Import new file</h2>
+      <ActionCards />
+
+      <Container className={styles.dashboard}>
+        <Header
+          text={`Import new file`}
+          size={2}
+        />
         <div
           {...getRootProps({
-            className: `${styles['dropzone']} ${
-              fileProcessing && styles['processing']
-            }`,
+            className: `${styles.dropzone} ${fileProcessing && styles.processing}`,
           })}
         >
           <input {...getInputProps()} />
@@ -114,45 +125,53 @@ export default function Imports() {
         </div>
       </Container>
 
-      <Container className="card">
-        <h2>Imported files ({sortedFileNames.length})</h2>
-        <Table>
-          {sortedFileNames.length !== 0 ? (
-            <>
-              <thead>
-                <tr>
-                  <th>File name</th>
-                  <th className="text-end">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedFileNames.map((key, index) => {
-                  const fileType = key.split('.').pop();
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <i className={`bi bi-filetype-${fileType}`}></i> {key}
-                      </td>
-                      <td className="text-end">
-                        <Button
-                          variant="outline-danger"
-                          onClick={() => {
-                            setKeyToDelete(key);
-                            setConfirmDialogShown(true);
-                          }}
-                        >
-                          <i className="bi bi-trash"></i>
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </>
-          ) : (
-            <p>No files imported yet.</p>
-          )}
-        </Table>
+
+      <Container>
+        <Header
+          text={`Imported files (${sortedFileNames.length})`}
+          size={2}
+        />
+        {sortedFileNames.length !== 0 ? (
+          <Table>
+            <thead>
+              <tr>
+                <th>File name</th>
+                <th className="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedFileNames.map((key, index) => {
+                const fileType = key.split('.').pop();
+                return (
+                  <tr key={index}>
+                    <td>
+                      <i className={`bi bi-filetype-${fileType}`}></i> {key}
+                    </td>
+                    <td className="text-end">
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => {
+                          setKeyToDelete(key);
+                          setConfirmDialogShown(true);
+                        }}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        ) : (
+          <Container>
+            <Row className={styles.dashboard}>
+              <Col xs={12} md={6}>
+                <DashboardCard header='No File Imported' caption='Please, first import a file.' />
+              </Col>
+            </Row>
+          </Container>
+        )}
       </Container>
 
       <ConfirmDialog

@@ -1,11 +1,14 @@
+'use client';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedFile } from '../redux/fileMgrSlice';
-import { RootState } from '../redux/store';
-import { Container, Form, OverlayTrigger, Popover } from 'react-bootstrap';
-import styles from './Dashboard.module.scss';
-import { IDashboardData } from '../interfaces/global';
-import PageHeader from '../components/PageHeader';
+import { setSelectedFile } from '@/redux/fileMgrSlice';
+import { RootState } from '@/redux/store';
+import { Container, Form, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
+import { IDashboardData } from '@/interfaces/global';
+import Header from '@/components/Header';
+import ActionCards from '@/components/cards/ActionCards';
+import DashboardCard from '@/components/cards/DashboardCard';
 import {
   BarChart,
   Bar,
@@ -19,11 +22,17 @@ import {
   Cell,
 } from 'recharts';
 
+import styles from './dashboard.module.scss'
+
 function EmptyDashboardContent() {
   return (
-    <>
-      <p>Please, select a file to display analyzed data.</p>
-    </>
+    <Container>
+      <Row className={styles.dashboard}>
+        <Col xs={12} md={6}>
+          <DashboardCard header='No File Selected' caption='Please, select a file to display analyzed data.' />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
@@ -61,7 +70,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
               placement="bottom"
               overlay={popover}
             >
-              <span className={styles['analyzed-word']}>{word}</span>
+              <span>{word}</span>
             </OverlayTrigger>
           ) : (
             <span>{word}</span>
@@ -75,7 +84,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
 
   return (
     <>
-      <Container className="card">
+      <Container>
         <div>
           <h2>Overall file analysis</h2>
         </div>
@@ -98,18 +107,17 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
         </ResponsiveContainer>
       </Container>
 
-      <Container className="card">
+      <Container >
         <h2>Single Line Analysis</h2>
         {rows.map((row, index) => {
           if (row) {
             return (
               <Container
                 fluid
-                className={styles['line-analysis-row']}
                 key={index}
               >
                 <div
-                  className={`${styles['separator-margin']}} horizontal-separator-dark`}
+                  className={`horizontal-sepaarator-dark`}
                 />
                 {processedText(row.rowText, row.entities)}
               </Container>
@@ -137,15 +145,18 @@ export default function Dashboard() {
   };
 
   return (
-    <Container fluid className={styles['dashboard-container']}>
-      <PageHeader
+    <Container className='flexCol' fluid>
+      <Header
         text="Dashboard"
         description="Select a file to view detailed analysis. The dashboard displays overall
         topic distribution and single line analysis of the selected file."
+        size={1}
       />
 
-      <Container>
-        <Form className={styles['select-file-form']}>
+      <ActionCards />
+
+      {/* <Container>
+        <Form>
           <Form.Label>Select file</Form.Label>
           <Form.Select value={selectedFile} onChange={handleSelectionChange}>
             <option value="">No file selected</option>
@@ -154,9 +165,9 @@ export default function Dashboard() {
             })}
           </Form.Select>
         </Form>
-      </Container>
+      </Container> */}
 
-      <Container>
+      <Container className={styles.dashboard}>
         {selectedFile === '' || selectedFile === null ? (
           <EmptyDashboardContent />
         ) : (

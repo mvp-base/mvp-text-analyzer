@@ -1,0 +1,97 @@
+@use './colors.scss' as *;
+
+@use '~bootstrap/scss/bootstrap' with ($primary: $primary,
+  $secondary: $secondary,
+  $success: $success,
+  $danger: $danger,
+  $warning: $warning,
+  $light: $light,
+  $dark: $dark);
+
+// Import Bootstrap Icons
+@import "bootstrap-icons/font/bootstrap-icons";
+
+
+// Global Styles (for body, headings, etc.)
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: xx-large !important;
+  margin: 12px;
+  align-self: start;
+}
+
+h2 {
+  font-size: x-large !important;
+}
+
+p {
+  font-size: large;
+  margin: 0 !important;
+}
+
+// Adapt Bootstrap components
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+.col {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  background-color: $dark;
+}
+
+//Global styles
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.primaryCard {
+  @extend .card;
+  background-color: $white !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.actionCard {
+  @extend .card;
+  padding: 10px 30px;
+  background: linear-gradient(180deg, $tertiary, $tertiary-darker);
+  box-shadow:
+    0px 0px 4px rgba(0, 0, 0, 0.7),
+    inset 0 0 50px rgba(255, 255, 255, 0.15);
+}
+
+.cardTransparent {
+  margin: 8px;
+  background-color: transparent;
+  width: fit-content;
+  padding: 24px 48px;
+}
+
+.text-highlight {
+  color: $primary;
+  font-weight: bold;
+}
+
+.text-soft {
+  font-weight: lighter;
+}

@@ -1,0 +1,17 @@
+@use '@/styles/colors.scss' as *;
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: left;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.header {
+    color: $primary;
+    align-items: center;
+    font-weight: bolder;
+    margin: 0;
+}

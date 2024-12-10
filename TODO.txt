@@ -1,5 +1,17 @@
-Known bugs:
-- Textrazor sometimes returns bad request
+Fix scss
 
-Improvements:
-- img to Bootstrap Image 
+Fix analysis 
+    - fix fileanalyzer to fetch whole file
+
+Dashboard fix
+
+Import check
+
+Responsivness
+
+
+deploy
+
+fix issues
+
+done
