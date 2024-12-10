@@ -6,9 +6,9 @@ import { setSelectedFile } from '@/redux/fileMgrSlice';
 import { RootState } from '@/redux/store';
 import { Container, Form, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
 import { IDashboardData } from '@/interfaces/global';
-import PageHeader from '@/components/PageHeader';
-import ActionCard from '@/components/ActionCard';
-import DashboardCard from '@/components/DashboardCard';
+import Header from '@/components/Header';
+import ActionCards from '@/components/cards/ActionCards';
+import DashboardCard from '@/components/cards/DashboardCard';
 import {
   BarChart,
   Bar,
@@ -84,7 +84,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
 
   return (
     <>
-      <Container className="card">
+      <Container>
         <div>
           <h2>Overall file analysis</h2>
         </div>
@@ -107,7 +107,7 @@ function DashboardContent({ globalTopics, rows }: IDashboardData) {
         </ResponsiveContainer>
       </Container>
 
-      <Container className="card">
+      <Container >
         <h2>Single Line Analysis</h2>
         {rows.map((row, index) => {
           if (row) {
@@ -146,24 +146,14 @@ export default function Dashboard() {
 
   return (
     <Container className='flexCol' fluid>
-      <PageHeader
+      <Header
         text="Dashboard"
         description="Select a file to view detailed analysis. The dashboard displays overall
         topic distribution and single line analysis of the selected file."
+        size={1}
       />
-      <Container className={styles.actionContainer}>
-        <Row>
-          <Col xs={12} md={4}>
-            <ActionCard header="ACTIVE FILE" caption="number of files imported" image="/images/file.png" />
-          </Col>
-          <Col xs={12} md={4}>
-            <ActionCard header="IMPORTED FILES" caption="number of files imported" image="/images/file.png" />
-          </Col>
-          <Col xs={12} md={4}>
-            <ActionCard header="GUIDE" caption="number of files imported" image="/images/file.png" />
-          </Col>
-        </Row>
-      </Container>
+
+      <ActionCards />
 
       {/* <Container>
         <Form>

@@ -1,0 +1,38 @@
+@use '@/styles/colors.scss' as *;
+
+.actionContainer {
+    margin-top: 40px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    color: $light;
+    padding: 0 20px;
+}
+
+.container h1 {
+    font-size: larger !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+}
+
+.container p {
+    font-size: medium;
+    margin: 0;
+}
+
+.textContainer {
+    flex: 0 1 auto;
+}
+
+.imageContainer {
+    flex: 1;
+}
+
+.coverImage {
+    width: 90px;
+    pointer-events: none;
+}

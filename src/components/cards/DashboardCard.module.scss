@@ -5,18 +5,20 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: $light;
+    height: 200px;
 }
 
 .container h1 {
-    font-size: larger;
-    font-weight: bold;
-    margin: 0;
+    font-size: x-large !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+    color: $primary !important;
 }
 
 .container p {
     font-size: medium;
     margin: 0;
+    color: $secondary;
 }
 
 .textContainer {

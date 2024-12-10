@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Navbar, Col, Row, Image } from 'react-bootstrap';
 
 import styles from './Navigation.module.scss'
-import Button from './Button';
+import Button from '@/components/Button'
 
 interface INavButton {
   to: string;
@@ -72,8 +72,8 @@ export default function Navigation() {
       <div className={styles.navSide}>
         <div className={`${styles.profileCard} primaryCard`}>
           <Image rounded className={styles.profileImage} src='/images/profile-default.png'></Image>
-          <Row>View Profile</Row>
-          <Button text="COMING SOON"></Button>
+          <Row>View Profile</Row>          
+          <Button style='primary' color='red' text="COMING SOON"></Button>
         </div>
       </div>
     </Navbar>

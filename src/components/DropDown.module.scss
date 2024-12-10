@@ -1,0 +1,11 @@
+.dropDownButton {
+    display: inline-block !important;
+    text-align: center !important;
+    border-width: 2px;
+    border-radius: 5px !important;
+    line-height: normal !important;    
+
+    &::after {
+        display: none;
+    }
+}

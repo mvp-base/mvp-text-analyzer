@@ -18,13 +18,13 @@ body {
 }
 
 h1 {
+  font-size: xx-large !important;
   margin: 12px;
-  font-size: 32px;
   align-self: start;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: x-large !important;
 }
 
 p {
@@ -52,20 +52,6 @@ p {
   background-color: $dark;
 }
 
-.btn-primary {
-  background-color: #fdecef !important;
-  border-color: #fdecef !important;
-  border-radius: 20px !important;
-  color: #924d5a !important;
-  font-weight: bold !important;
-  font-size: small !important;
-}
-
-.btn-primary:hover {
-  background-color: #fdecef !important;
-  border-color: #fdecef !important;
-}
-
 //Global styles
 
 .flexCol {
@@ -79,11 +65,6 @@ p {
   flex-direction: row;
 }
 
-.card {
-  border: none !important;
-  border-radius: 20px !important;
-}
-
 .primaryCard {
   @extend .card;
   background-color: $white !important;
@@ -94,8 +75,8 @@ p {
   @extend .card;
   padding: 10px 30px;
   background: linear-gradient(180deg, $tertiary, $tertiary-darker);
-  box-shadow: 
-    0px 0px 4px rgba(0, 0, 0, 0.7), 
+  box-shadow:
+    0px 0px 4px rgba(0, 0, 0, 0.7),
     inset 0 0 50px rgba(255, 255, 255, 0.15);
 }
 
