@@ -5,6 +5,7 @@ interface IButton {
     style: 'primary' | 'square' | 'round';
     text: string | JSX.Element;
     color?: 'red' | 'blue' | 'cyan' | 'yellow' | 'green' | 'gray' | 'white';
+    onClick: () => void;
 }
 
 const colors = {
@@ -45,7 +46,7 @@ const defaultColors = {
 }
 
 export default function Button(props: IButton) {
-    const { text, style, color } = props;
+    const { text, style, color, onClick } = props;
 
     if (style === 'primary') {
         const backgroundColor = color ? colors[color].background : colors.blue.background;
@@ -53,7 +54,7 @@ export default function Button(props: IButton) {
         const borderColor = backgroundColor;
 
         return (
-            <DefaultButton className={styles.primaryButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }}>
+            <DefaultButton className={styles.primaryButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }} onClick={onClick}>
                 {text}
             </DefaultButton>
         );
@@ -65,7 +66,7 @@ export default function Button(props: IButton) {
         const textColor = borderColor;
 
         return (
-            <DefaultButton className={styles.squareButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }}>
+            <DefaultButton className={styles.squareButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }} onClick={onClick}>
                 {text}
             </DefaultButton>
         );
@@ -77,7 +78,7 @@ export default function Button(props: IButton) {
         const borderColor = backgroundColor;
 
         return (
-            <DefaultButton className={styles.roundButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }}>
+            <DefaultButton className={styles.roundButton} style={{ backgroundColor: backgroundColor, borderColor: borderColor, color: textColor }} onClick={onClick}>
                 {text}
             </DefaultButton>
         );

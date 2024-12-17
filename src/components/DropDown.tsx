@@ -5,6 +5,8 @@ import styles from './DropDown.module.scss';
 
 interface IDropDown {
     color?: 'red' | 'gray' | 'blue' | 'cyan' | 'yellow' | 'gray' | 'white';
+    content: string[];
+    onSelect?: (selectedItem: string) => void;
 }
 
 const colors = {
@@ -18,7 +20,7 @@ const colors = {
 };
 
 export function DropDown(props: IDropDown) {
-    const { color } = props;
+    const { color, content, onSelect } = props;
 
     const textColor = color ? colors[color] : colors.blue;
 
@@ -33,7 +35,14 @@ export function DropDown(props: IDropDown) {
             </DefaultDropdown.Toggle>
 
             <DefaultDropdown.Menu>
-
+                {content.map((selection, index) => (
+                    <DefaultDropdown.Item
+                        key={index}
+                        onClick={() => onSelect?.(selection)}
+                    >
+                        {selection}
+                    </DefaultDropdown.Item>
+                ))}
             </DefaultDropdown.Menu>
         </DefaultDropdown>
     );

@@ -13,6 +13,8 @@ interface IGlobalTopics {
 }
 
 export interface IDashboardData {
+  name: string;
+  exportDate: Date;
   globalTopics: IGlobalTopics[];
   rows: IRow[];
 }

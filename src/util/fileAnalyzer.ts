@@ -1,5 +1,5 @@
-import { IDashboardData } from '../interfaces/global';
 import { addFile } from '../redux/fileMgrSlice';
+import { IDashboardData } from '@/interfaces/global';
 
 interface IResults {
   variant: string;
@@ -17,78 +17,81 @@ export function readFile(file: File): Promise<string> {
 
 export async function analyzeFile(
   file: File,
-  apiKey: string,
   dispatch: any
 ): Promise<IResults> {
-  if (!apiKey) {
-    return { variant: 'danger', text: 'There is an issue with the API key.' };
-  }
 
-  const dashboardData: IDashboardData = { globalTopics: [], rows: [] };
+  console.log("Started analyzing [analyzeFile]");
+
+  const apiKey = process.env.NEXT_PUBLIC_TEXT_RAZOR_API_KEY;
+  const url = '/api/textrazor/';
+  const headers: HeadersInit = {
+    'x-textrazor-key': apiKey || '',
+    'Content-Type': 'application/json',
+  };
+
   const fileContent = await readFile(file);
-  const fileRows = fileContent.split('\n');
+  const plainFileName = file.name.charAt(0)
+    .toUpperCase()
+    + file.name.slice(1, file.name.lastIndexOf("."))
 
-  const url = '/';
-  const promises = fileRows.map(async (row, index) => {
-    const data = new URLSearchParams({
-      extractors: 'entities,topics',
-      text: row,
-    }).toString();
+  const dashboardData: IDashboardData = {
+    name: plainFileName,
+    exportDate: new Date(),
+    globalTopics: [],
+    rows: []
+  };
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'x-textrazor-key': apiKey,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: data,
-      });
+  const data = new URLSearchParams({
+    extractors: 'entities,topics',
+    text: fileContent,
+  }).toString();
 
-      if (!response.ok) throw new Error(`${response.statusText}`);
-
-      const result = await response.json();
-
-      // Parse Coarse Topics and save global stats
-      result.response.coarseTopics.forEach((topic: any) => {
-        const { label, wikiLink } = topic;
-        const globalTopic = dashboardData.globalTopics.find(
-          (stats) => stats.label === label
-        );
-
-        if (globalTopic) {
-          globalTopic.count++;
-        } else {
-          dashboardData.globalTopics.push({
-            label: label,
-            count: 1,
-            wikiLink: wikiLink,
-          });
-        }
-      });
-      // Filter only 6 most common topics
-      dashboardData.globalTopics.sort((a, b) => b.count - a.count);
-      dashboardData.globalTopics = dashboardData.globalTopics.slice(0, 6);
-
-      // Save Row data
-      dashboardData.rows[index] = {
-        id: index,
-        rowText: row,
-        entities: result.response.entities,
-        topics: result.response.topics,
-        language: result.response.language,
-      };
-    } catch (error) {
-      return { variant: 'danger', text: 'File import failed.' };
-    }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: data,
   });
 
-  try {
-    await Promise.all(promises);
+  if (!response.ok) throw new Error(`${response.statusText}`);
 
-    dispatch(addFile({ filename: file.name, data: dashboardData }));
-    return { variant: 'success', text: 'File successfully imported!' };
+  const result = await response.json();
+
+  try {
+    // Parse Coarse Topics and save global stats
+    result.response.coarseTopics.forEach((topic: any) => {
+      const { label, wikiLink } = topic;
+      const globalTopic = dashboardData.globalTopics.find(
+        (stats) => stats.label === label
+      );
+
+      if (globalTopic) {
+        globalTopic.count++;
+      } else {
+        dashboardData.globalTopics.push({
+          label: label,
+          count: 1,
+          wikiLink: wikiLink,
+        });
+      }
+    });
+
+    // Filter only 6 most common topics
+    dashboardData.globalTopics.sort((a, b) => b.count - a.count);
+    dashboardData.globalTopics = dashboardData.globalTopics.slice(0, 6);
+
+    // Save Row data
+    // dashboardData.rows[index] = {
+    //   id: index,
+    //   rowText: row,
+    //   entities: result.response.entities,
+    //   topics: result.response.topics,
+    //   language: result.response.language,
+    // };
+
   } catch (error) {
     return { variant: 'danger', text: 'File import failed.' };
+  } finally {
+    dispatch(addFile({ filename: file.name, data: dashboardData }));
+    return { variant: 'success', text: 'File successfully imported!' };
   }
 }

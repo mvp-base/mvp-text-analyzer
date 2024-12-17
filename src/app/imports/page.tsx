@@ -13,7 +13,8 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 import Header from '../../components/Header';
 import ActionCards from '@/components/cards/ActionCards';
 
-import styles from './imports.module.scss'
+import styles from './imports.module.scss';
+import FilesTable from '@/components/FilesTable';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -32,7 +33,6 @@ export default function Imports() {
   const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
 
   const files = useSelector((state: RootState) => state.fileMgr.files);
-  const sortedFileNames = Object.keys(files).sort();
 
   const selectedFile = useSelector(
     (state: RootState) => state.fileMgr.selectedFile
@@ -72,7 +72,6 @@ export default function Imports() {
 
       analyzeFile(
         file,
-        process.env.REACT_APP_TEXT_RAZOR_API_KEY || '',
         dispatch
       )
         .then((result) => setSubmitResult(result))
@@ -128,50 +127,14 @@ export default function Imports() {
 
       <Container>
         <Header
-          text={`Imported files (${sortedFileNames.length})`}
+          text={`Imported files (${Object.keys(files).length})`}
           size={2}
         />
-        {sortedFileNames.length !== 0 ? (
-          <Table>
-            <thead>
-              <tr>
-                <th>File name</th>
-                <th className="text-end">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedFileNames.map((key, index) => {
-                const fileType = key.split('.').pop();
-                return (
-                  <tr key={index}>
-                    <td>
-                      <i className={`bi bi-filetype-${fileType}`}></i> {key}
-                    </td>
-                    <td className="text-end">
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => {
-                          setKeyToDelete(key);
-                          setConfirmDialogShown(true);
-                        }}
-                      >
-                        <i className="bi bi-trash"></i>
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        ) : (
-          <Container>
-            <Row className={styles.dashboard}>
-              <Col xs={12} md={6}>
-                <DashboardCard header='No File Imported' caption='Please, first import a file.' />
-              </Col>
-            </Row>
-          </Container>
-        )}
+        <FilesTable
+          content={files}
+          setKeyToDelete={setKeyToDelete}
+          setConfirmDialogShown={setConfirmDialogShown}
+        />
       </Container>
 
       <ConfirmDialog

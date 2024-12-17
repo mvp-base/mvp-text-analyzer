@@ -70,11 +70,20 @@ export default function Navigation() {
         <NavButton to="/imports" icon="bi bi-file-earmark-arrow-up" text="IMPORTS" />
       </div>
       <div className={styles.navSide}>
-        <div className={`${styles.profileCard} primaryCard`}>
-          <Image rounded className={styles.profileImage} src='/images/profile-default.png'></Image>
-          <Row>View Profile</Row>          
-          <Button style='primary' color='red' text="COMING SOON"></Button>
-        </div>
+        <a
+          href="https://github.com/vanm30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className={`bi bi-github ${styles.extLink}`}></i>
+        </a>
+        <a
+          href="https:/linkedin.com/in/vanm30"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className={`bi bi-linkedin ${styles.extLink}`}></i>
+        </a>
       </div>
     </Navbar>
   );

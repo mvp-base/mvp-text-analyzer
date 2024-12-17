@@ -138,11 +138,7 @@ export default function Dashboard() {
     (state: RootState) => state.fileMgr.selectedFile
   );
 
-  const handleSelectionChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    dispatch(setSelectedFile(event.target.value));
-  };
+
 
   return (
     <Container className='flexCol' fluid>
