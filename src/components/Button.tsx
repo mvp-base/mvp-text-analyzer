@@ -39,12 +39,6 @@ const colors = {
     }
 };
 
-const defaultColors = {
-    primary: colors.blue,
-    square: colors.gray,
-    round: colors.red,
-}
-
 export default function Button(props: IButton) {
     const { text, style, color, onClick } = props;
 

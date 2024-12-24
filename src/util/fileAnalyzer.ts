@@ -1,5 +1,5 @@
 import { addFile } from '../redux/fileMgrSlice';
-import { IDashboardData, IWord } from '@/interfaces/global';
+import { IDashboardData } from '@/interfaces/global';
 
 const TOP_TOPICS = 4;
 

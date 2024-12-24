@@ -37,7 +37,7 @@ export default function Imports() {
     (state: RootState) => state.fileMgr.selectedFile
   );
 
-  const handleDeleteFile = (filename: any) => {
+  const handleDeleteFile = (filename: string) => {
     dispatch(removeFile({ filename }));
     if (selectedFile === filename) {
       dispatch(clearSelectedFile());
@@ -50,10 +50,11 @@ export default function Imports() {
   };
 
   const handleAcceptConfirmDeleteDialog = () => {
-    handleDeleteFile(keyToDelete);
-
-    setKeyToDelete(null);
-    setConfirmDialogShown(false);
+    if (keyToDelete) {
+      handleDeleteFile(keyToDelete);
+      setKeyToDelete(null);
+      setConfirmDialogShown(false);
+    }
   };
 
   const onDrop = (acceptedFiles: File[]) => {

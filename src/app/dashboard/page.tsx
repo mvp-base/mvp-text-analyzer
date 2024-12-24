@@ -2,10 +2,9 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedFile } from '@/redux/fileMgrSlice';
 import { RootState } from '@/redux/store';
-import { Container, Form, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
-import { IDashboardData, IEntity } from '@/interfaces/global';
+import { Container, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
+import { IDashboardData } from '@/interfaces/global';
 import Header from '@/components/Header';
 import ActionCards from '@/components/cards/ActionCards';
 import DashboardCard from '@/components/cards/DashboardCard';
@@ -51,42 +50,6 @@ function DashboardContent({ globalTopics, detailedTopics, topTopics, entities, s
     '#964141',
     '#16538d',
   ];
-
-  const processedText = (text: string, entities: any) => {
-    const words = text.split(/\s+/);
-
-    const highligtedText = words.map((word: string, index) => {
-      const matchedEntity = entities?.find(
-        (entity: any) =>
-          entity.matchedText.toLowerCase() === word.trim().toLowerCase()
-      );
-
-      const popover = (
-        <Popover id={`popover-${index}`}>
-          <Popover.Body>{matchedEntity?.wikiLink}</Popover.Body>
-        </Popover>
-      );
-
-      return (
-        <>
-          {index > 0 && <span> </span>}
-          {matchedEntity ? (
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="bottom"
-              overlay={popover}
-            >
-              <span>{word}</span>
-            </OverlayTrigger>
-          ) : (
-            <span>{word}</span>
-          )}
-        </>
-      );
-    });
-
-    return highligtedText;
-  };
 
   return (
     <>
@@ -261,9 +224,7 @@ function DashboardContent({ globalTopics, detailedTopics, topTopics, entities, s
 }
 
 export default function Dashboard() {
-  const dispatch = useDispatch();
   const files = useSelector((state: RootState) => state.fileMgr.files);
-  const sortedFileNames = Object.keys(files).sort();
   const selectedFile = useSelector(
     (state: RootState) => state.fileMgr.selectedFile
   );

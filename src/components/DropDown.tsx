@@ -1,5 +1,4 @@
-import { Dropdown as DefaultDropdown } from 'react-bootstrap'; // Correct import
-import Button from './Button'; // Your custom Button component
+import { Dropdown as DefaultDropdown } from 'react-bootstrap';
 
 import styles from './DropDown.module.scss';
 

@@ -1,4 +1,4 @@
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import React from 'react';
 
 import styles from './GraphCard.module.scss'

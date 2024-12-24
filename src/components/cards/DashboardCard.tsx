@@ -20,7 +20,7 @@ export default function DashboardCard(props: IDashboardCard) {
                 {header && <h1>{header}</h1>}
                 {caption}
             </Container>
-            {image && <Image className={styles.coverImage} src={image}></Image>}
+            {image && <Image className={styles.coverImage} src={image} alt='dashboard-image'></Image>}
         </Container>
     );
 }

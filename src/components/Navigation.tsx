@@ -2,20 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Navbar, Col, Row, Image } from 'react-bootstrap';
+import { Navbar, Image } from 'react-bootstrap';
 
 import styles from './Navigation.module.scss'
-import Button from '@/components/Button'
 
 interface INavButton {
   to: string;
   text: string;
   icon?: string;
-}
-
-interface INavIcon {
-  to: string;
-  iconSrc: string;
 }
 
 function NavButton(props: INavButton) {

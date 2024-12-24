@@ -25,7 +25,7 @@ function ActionCard(props: IActionCard) {
         <Container className={`${styles.cardContainer} actionCard`} fluid>
             <Col className={`${styles.sideContainer} ${styles.imageContainer}`}>
                 {image && (
-                    <Image className={styles.coverImage} src={image}></Image>
+                    <Image className={styles.coverImage} src={image} alt='action-image'></Image>
                 )}
             </Col>
             <Col className={styles.middleContainer}>
