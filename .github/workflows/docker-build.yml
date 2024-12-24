@@ -38,17 +38,11 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Check if Docker is installed
-            docker --version || { echo "Docker not found"; exit 1; }
-
-            # Pull the latest image
             docker pull "${{ secrets.DOCKER_USERNAME }}/text-analyzer:latest"
 
-            # Stop and remove existing container if it exists
             docker stop text-analyzer || true
             docker rm text-analyzer || true
 
-            # Run the new container
             docker run -d \
               --restart unless-stopped \
               -p 3001:3001 \
