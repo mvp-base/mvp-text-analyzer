@@ -8,11 +8,6 @@ interface IResults {
   text: string;
 }
 
-interface Entity {
-  confidenceScore: number;
-  [key: string]: any;
-}
-
 export function readFile(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -112,7 +107,7 @@ export async function analyzeFile(
 
     //save entities that confidenceScore >= 15
     Object.entries(entities)
-      .filter(([key, entity]: [string, any]) => entity.confidenceScore >= 15)
+      .filter((entity: any) => entity.confidenceScore >= 15)
       .forEach((entity: any) => {
         const { confidenceScore, endingPos, relevanceScore, type, wikiLink } = entity[1];
         dashboardData.entities.push({
@@ -138,7 +133,8 @@ export async function analyzeFile(
       dashboardData.sentences.push(words);
     });
 
-  } catch (error) {
+  } catch (e) {
+    console.log(e);
     return { variant: 'danger', text: 'File import failed.' };
   } finally {
     dispatch(addFile({ filename: file.name, data: dashboardData }));

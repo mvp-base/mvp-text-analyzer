@@ -71,7 +71,7 @@ export default function Home() {
                       <Form.Control disabled size="sm" type="text" placeholder='Enter your API key' className={styles.apiInput} />
                     </Form>
                     <p className={styles.apiNote}>
-                      Your API key is not stored on our side and is used solely for the app's functionality.
+                      Your API key is not stored on our side and is used solely for the app functionality.
                     </p>
                     <p className={styles.apiNote}>
                       This feature is not yet available.
@@ -86,8 +86,3 @@ export default function Home() {
     </Container >
   );
 }
-
-
-//Welcome card
-//Token card and instructions
-//

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { Container, OverlayTrigger, Popover, Row, Col } from 'react-bootstrap';
 import { IDashboardData } from '@/interfaces/global';
@@ -109,8 +109,7 @@ function DashboardContent({ globalTopics, detailedTopics, topTopics, entities, s
                     );
 
                     return (
-
-                      <Col className={styles.topTopicsCol}>
+                      <Col key={index} className={styles.topTopicsCol}>
                         <i className={`bi bi-${index + 1}-square fs-5`}></i>
                         <OverlayTrigger
                           trigger={['hover', 'focus']}
