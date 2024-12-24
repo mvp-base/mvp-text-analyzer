@@ -6,7 +6,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import store from '@/redux/store';
 import Navigation from '@/components/Navigation';
-import Links from '@/components/Links';
 
 import '@/styles/globals.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,19 +32,11 @@ export default function RootLayout({ children }: IRootLayout) {
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider store={store}>
           <Container fluid id="mainLayout" className={styles.mainLayout}>
-            {/* Optional Links Row */}
-            {/* <Row>
-              <Links />
-            </Row> */}
-
-            <Row className="flex-grow-1 flex-column flex-md-row">
-              {/* Navigation with Fixed Width */}
-              <Col md={2} id="nav">
+            <Row className="nm flex-grow-1 flex-column flex-md-row">
+              <Col className="nmp" md={2} id="nav">
                 <Navigation />
               </Col>
-
-              {/* Main Content with Flexible Width */}
-              <Col id="main" className={`${styles.desktopContainer}`}>
+              <Col id="main" className={`nm ${styles.mainContainer}`}>
                 {children}
               </Col>
             </Row>

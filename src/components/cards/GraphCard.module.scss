@@ -2,18 +2,20 @@
 
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 200px;
-    padding: 20px 16px;
+    flex: 1;
+    min-height: 150px;
+    gap: 16px;
+    padding: 20px 20px !important;
+    justify-content: start;
+    text-align: center;
 }
 
 .container h1 {
-    font-size: x-large !important;
+    font-size: larger !important;
     font-weight: bold !important;
     margin: 0 !important;
     color: $primary !important;
+    align-self: center;
 }
 
 .container p {
@@ -22,15 +24,9 @@
     color: $secondary;
 }
 
-.textContainer {
+.body {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
     justify-content: center;
-    align-items: left;
-    text-align: left;
-}
-
-.coverImage {
-    width: 80px;
+    flex: 1;
 }

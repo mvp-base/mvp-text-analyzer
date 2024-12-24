@@ -30,23 +30,19 @@
 }
 
 .navBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-grow: 2;
-  gap: 100px;
 }
 
 .logoImage {
   width: 50px;
   height: 50px;
-  margin: 5px;
 }
 
 .buttonImage {
   font-size: 24px;
-}
-
-.profileImage {
-  width: 40px;
-  height: 40px;
 }
 
 .navSide {
@@ -62,8 +58,5 @@
 }
 
 .logoText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   font-weight: bold;
 }

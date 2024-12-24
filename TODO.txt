@@ -1,17 +1,1 @@
-Fix scss
-
-Fix analysis 
-    - fix fileanalyzer to fetch whole file
-
-Dashboard fix
-
-Import check
-
-Responsivness
-
-
-deploy
-
-fix issues
-
-done
+Fix popover

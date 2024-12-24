@@ -1,0 +1,25 @@
+@use '@/styles/colors.scss' as *;
+
+.apiCard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.apiInput{
+    width: 80%;
+}
+
+.apiInputLabel {
+    font-size: small;
+    font-weight: 700;
+    margin: 0;
+    color: $primary
+}
+
+.apiNote {
+    font-size: small !important;
+    font-weight: 600;
+    color: $danger !important;
+}
+

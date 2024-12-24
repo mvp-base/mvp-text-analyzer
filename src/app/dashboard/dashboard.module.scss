@@ -1,43 +1,68 @@
+@use '@/styles/colors.scss' as *;
+
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-  }
-  
-  .line-analysis-row {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-  
-  .separator-margin {
-    margin-bottom: 12px;
-  }
-  
-  .select-file-form {
-    width: 200px;
-    align-self: start;
-  }
-  
-  .analyzed-word {
-    font-weight: bold;
-    text-decoration: underline;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
 
-  .actionContainer {
-    margin-top: 40px;
-  }
+.line-analysis-row {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
 
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-  }
+.separator-margin {
+  margin-bottom: 12px;
+}
 
-  .emptyDashboardInfo {
-    padding: 60px 40px;
-  }
+.select-file-form {
+  width: 200px;
+  align-self: start;
+}
 
-  
+.analyzed-word {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.actionContainer {
+  margin-top: 40px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.emptyDashboardInfo {
+  padding: 60px 40px;
+}
+
+.graphCard {
+  display: flex;
+  flex-direction: row;
+}
+
+.topTopicsContainer {
+  display: flex;
+  color: $primary;
+}
+
+.topTopicsCol {
+  flex: 1;
+  overflow: hidden;
+}
+
+.topTopicText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

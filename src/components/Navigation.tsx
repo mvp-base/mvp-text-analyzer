@@ -44,17 +44,10 @@ function NavHome() {
 
   return (
     <Link href="/" className={`${styles.navLink} ${isActive && styles.active}`}>
-      <Row>
-        <Col>
-          <div className='primaryCard'>
-            <Image className={styles.logoImage} src={adaptedLogo} alt="Logo" />
-          </div>
-        </Col>
-        <Col className={styles.logoText}>
-          <Row>TEXT</Row>
-          <Row>ANALYZER</Row>
-        </Col>
-      </Row>
+      <span className={`${styles.navLink} ${isActive && styles.active}`}>
+        <Image className={styles.logoImage} src={adaptedLogo} alt="Logo" />
+        <p className={styles.logoText}>TEXT <br /> ANALYZER</p>
+      </span>
     </Link >
   );
 }

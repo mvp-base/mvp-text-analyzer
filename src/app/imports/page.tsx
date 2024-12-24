@@ -1,14 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Button, Table, Spinner, Toast, Row, Col } from 'react-bootstrap';
+import { Container, Spinner, Toast, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { RootState } from '../../redux/store';
 import { removeFile, clearSelectedFile } from '../../redux/fileMgrSlice';
 import { analyzeFile } from '../../util/fileAnalyzer';
 
-import DashboardCard from '@/components/cards/DashboardCard';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import Header from '../../components/Header';
 import ActionCards from '@/components/cards/ActionCards';
@@ -87,55 +86,58 @@ export default function Imports() {
 
   return (
     <Container fluid>
-      <Header
-        text="Imports"
-        description="Upload and analyze text files. Manage imported files."
-        size={1}
-      />
+      <Col>
+        <Container fluid>
+          <Header
+            text="Dashboard"
+            description="Select a file to view detailed analysis. The dashboard displays overall
+               topic distribution and single line analysis of the selected file."
+            size={1}
+          />
 
-      <ActionCards />
+          <ActionCards />
+        </Container>
+        <Row className={styles.dropzoneContainer}>
+          <Header
+            text={`Import new file`}
+            size={2}
+          />
+          <div
+            {...getRootProps({
+              className: `${styles.dropzone} ${fileProcessing && styles.processing}`,
+            })}
+          >
+            <input {...getInputProps()} />
+            {fileProcessing ? (
+              <>
+                <p className="text-highlight">Analyzing</p>
+                <Spinner variant="primary" animation="border" />
+              </>
+            ) : (
+              <>
+                <i className="bi bi-upload fs-3"></i>
+                <p>
+                  Drop your file here or{' '}
+                  <span className="text-highlight">Click to select</span>
+                </p>
+                <p className="text-soft"> Supported file is only .TXT</p>
+              </>
+            )}
+          </div>
+        </Row>
+        <Row>
+          <Header
+            text={`Imported files (${Object.keys(files).length})`}
+            size={2}
+          />
 
-      <Container className={styles.dashboard}>
-        <Header
-          text={`Import new file`}
-          size={2}
-        />
-        <div
-          {...getRootProps({
-            className: `${styles.dropzone} ${fileProcessing && styles.processing}`,
-          })}
-        >
-          <input {...getInputProps()} />
-          {fileProcessing ? (
-            <>
-              <p className="text-highlight">Analyzing</p>
-              <Spinner variant="primary" animation="border" />
-            </>
-          ) : (
-            <>
-              <i className="bi bi-upload fs-3"></i>
-              <p>
-                Drop your file here or{' '}
-                <span className="text-highlight">Click to select</span>
-              </p>
-              <p className="text-soft"> Supported file is only .TXT</p>
-            </>
-          )}
-        </div>
-      </Container>
-
-
-      <Container>
-        <Header
-          text={`Imported files (${Object.keys(files).length})`}
-          size={2}
-        />
-        <FilesTable
-          content={files}
-          setKeyToDelete={setKeyToDelete}
-          setConfirmDialogShown={setConfirmDialogShown}
-        />
-      </Container>
+          <FilesTable
+            content={files}
+            setKeyToDelete={setKeyToDelete}
+            setConfirmDialogShown={setConfirmDialogShown}
+          />
+        </Row>
+      </Col>
 
       <ConfirmDialog
         headerText="Confirm Delete"

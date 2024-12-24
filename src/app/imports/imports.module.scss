@@ -1,39 +1,29 @@
 @use '@/styles/colors.scss' as *;
 
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+.dropzoneContainer {
+  display: flex;
+  justify-content: center;
 }
 
-.imports-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 180px;
+  background-color: rgba(#6362f4, 0.2);
+  border: 2px dashed #6362f4;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border 0.3s ease;
+
+  &.processing {
+    border: 2px dashed rgba(#3b4657, 0.1);
   }
 
-  .dropzone {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    height: 180px;
-    background-color: rgba(#6362f4, 0.2);
-    border: 2px dashed #6362f4;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border 0.3s ease;
-
-    &.processing {
-      border: 2px dashed rgba(#3b4657, 0.1);
-    }
-
-    &:hover {
-      background-color: rgba(#6362f4, 0.1);
-      border: 2px dashed #3b4657;
-    }
+  &:hover {
+    background-color: rgba(#6362f4, 0.1);
+    border: 2px dashed #3b4657;
   }
+}

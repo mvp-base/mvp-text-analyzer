@@ -19,7 +19,7 @@ const colors = {
     white: '#c0c0fa',
 };
 
-export function DropDown(props: IDropDown) {
+export default function DropDown(props: IDropDown) {
     const { color, content, onSelect } = props;
 
     const textColor = color ? colors[color] : colors.blue;

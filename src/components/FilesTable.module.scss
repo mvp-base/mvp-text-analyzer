@@ -1,0 +1,26 @@
+@use '@/styles/colors.scss' as *;
+
+.infoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+
+    th,
+    td {
+        background-color: transparent;
+        vertical-align: middle;
+        color: $primary;
+        border-bottom-color: $light;
+        border-bottom-width: 2px;
+
+        &.bold {
+            font-weight: bolder;
+        }
+    }
+}
+
+.seeMore {
+    text-align: end;
+}
