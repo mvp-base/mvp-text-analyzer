@@ -1,0 +1,11 @@
+name: Deploy to production
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    uses: mvp-base/mvp-actions/.github/workflows/deploy-prod.yml@v2.0.0
+    secrets: inherit

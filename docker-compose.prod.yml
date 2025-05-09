@@ -1,0 +1,14 @@
+services:
+  mvp-text-analyzer:
+    container_name: mvp-text-analyzer
+    image: matejv30/mvp-text-analyzer:${TAG_NAME}
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - mvp-nw
+
+networks:
+  mvp-nw:
+    external: true
+
